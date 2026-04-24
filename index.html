@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgentHill — Payment Layer for the Agentic Economy</title>
+<link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Fraunces:ital,wght@1,600&amp;display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2EFE8;
+    --paper-2:#EAE6DC;
+    --ink:#0E0E0C;
+    --ink-2:#2A2A26;
+    --mute:#6F6B5F;
+    --signal:#C6F154;
+    --signal-ink:#3A4A0E;
+    --rust:#C24E2E;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter Tight',system-ui,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.5;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%}
+
+  /* dotted grid on body */
+  body::before{
+    content:'';
+    position:fixed; inset:0;
+    background-image:radial-gradient(circle, rgba(14,14,12,0.08) 1px, transparent 1px);
+    background-size:24px 24px;
+    pointer-events:none;
+    z-index:0;
+  }
+  main, header, footer { position:relative; z-index:1; }
+
+  /* ============ HEADER ============ */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(242,239,232,0.85);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--ink);
+  }
+  .nav-bar{
+    max-width:1400px;
+    margin:0 auto;
+    padding:14px 40px;
+    display:flex; justify-content:space-between; align-items:center;
+    gap:40px;
+  }
+  .brand{display:inline-flex; align-items:center; gap:10px; color:var(--ink);}
+  .brand svg{width:26px; height:26px;}
+  .brand .wd{font-weight:700; font-size:18px; letter-spacing:-0.01em;}
+  .brand .wd em{font-family:'Fraunces',serif; font-style:italic; font-weight:600;}
+
+  nav{display:flex; gap:28px; align-items:center; }
+  nav a{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px; letter-spacing:0.02em;
+    color:var(--ink-2);
+    padding:6px 0;
+    border-bottom:1px solid transparent;
+    transition:border-color .2s, color .2s;
+  }
+  nav a:hover{border-bottom-color:var(--ink); color:var(--ink);}
+  nav .cta{
+    background:var(--ink);
+    color:var(--paper);
+    padding:10px 18px;
+    border-radius:2px;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  nav .cta:hover{background:var(--rust); border-bottom-color:transparent;}
+  nav .cta::after{content:'↗'}
+
+  .hamburger{display:none; background:none; border:none; cursor:pointer; padding:8px;}
+  .hamburger span{display:block; width:22px; height:2px; background:var(--ink); margin:4px 0;}
+
+  /* ============ SECTION SCAFFOLD ============ */
+  section{padding:clamp(36px, 5.5vh, 60px) 40px; position:relative;}
+  .container{max-width:1400px; margin:0 auto;}
+
+  .tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--ink-2); display:inline-flex; align-items:center; gap:10px;
+  }
+  .tag::before{content:''; width:22px; height:1px; background:currentColor;}
+
+  h2.h{
+    font-size:clamp(28px, 3.6vw, 52px);
+    font-weight:700; letter-spacing:-0.03em; line-height:1.02;
+    margin-top:10px; max-width:1200px;
+  }
+  h2.h em{font-family:'Fraunces',serif; font-style:italic; font-weight:600;}
+  .lede{
+    font-size:clamp(14px, 1.05vw, 17px);
+    color:var(--ink-2); max-width:780px; line-height:1.5;
+    margin-top:12px;
+  }
+
+  /* ============ HERO ============ */
+  #hero{padding-top:clamp(22px, 3vh, 40px); padding-bottom:clamp(22px, 3vh, 40px);}
+  .hero-marquee{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px; color:var(--mute);
+    display:flex; justify-content:space-between; align-items:center;
+    border-bottom:1px solid var(--ink);
+    padding:8px 0 14px;
+    margin-bottom:40px;
+  }
+  .hero-marquee .lhs{display:flex; gap:20px; align-items:center;}
+  .dot-live{width:6px; height:6px; border-radius:50%; background:var(--rust); box-shadow:0 0 0 4px rgba(194,78,46,0.18); animation:pulse 2s infinite;}
+  @keyframes pulse{50%{opacity:.4;}}
+
+  h1.display{
+    font-size:clamp(36px, 4.8vw, 72px);
+    font-weight:700; letter-spacing:-0.04em; line-height:0.94;
+    max-width:1500px;
+  }
+  h1.display em{font-family:'Fraunces',serif; font-style:italic; font-weight:600; color:var(--rust);}
+
+  .hero-grid{
+    display:grid; grid-template-columns:1.5fr 1fr;
+    gap:clamp(32px, 4vw, 60px); align-items:end;
+    margin-top:clamp(20px, 3vh, 36px);
+  }
+  .hero-sub{font-size:clamp(16px, 1.3vw, 20px); color:var(--ink-2); line-height:1.4; max-width:620px;}
+  .hero-ctas{display:flex; gap:14px; margin-top:clamp(18px, 2.6vh, 28px); flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'Inter Tight',sans-serif;
+    font-size:15px; font-weight:600;
+    padding:13px 24px;
+    border-radius:2px;
+    transition:transform .15s, background .15s;
+  }
+  .btn-primary{background:var(--ink); color:var(--paper);}
+  .btn-primary:hover{background:var(--rust); transform:translateY(-2px);}
+  .btn-ghost{background:transparent; color:var(--ink); border:1px solid var(--ink);}
+  .btn-ghost:hover{background:var(--ink); color:var(--paper);}
+
+  /* hero receipt card */
+  .hero-receipt{
+    background:var(--ink);
+    color:var(--paper);
+    padding:22px;
+    border-radius:2px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px; line-height:1.55;
+    position:relative;
+  }
+  .hero-receipt .head{
+    display:flex; justify-content:space-between;
+    border-bottom:1px dashed rgba(242,239,232,0.25);
+    padding-bottom:8px; margin-bottom:10px;
+  }
+  .hero-receipt .head .title{color:var(--signal); letter-spacing:0.1em;}
+  .hero-receipt .row{display:flex; justify-content:space-between; gap:16px;}
+  .hero-receipt .row .k{color:rgba(242,239,232,0.55);}
+  .hero-receipt .row .v{color:var(--paper);}
+  .hero-receipt .row .v.green{color:var(--signal);}
+  .hero-receipt .total{
+    border-top:1px dashed rgba(242,239,232,0.25);
+    margin-top:10px; padding-top:10px;
+    display:flex; justify-content:space-between;
+    font-size:15px; color:var(--signal);
+  }
+  .hero-receipt .stamp{
+    position:absolute; top:-12px; right:-12px;
+    background:var(--signal); color:var(--signal-ink);
+    padding:6px 12px; font-size:11px; letter-spacing:0.1em;
+    transform:rotate(4deg);
+  }
+
+  /* hero stats rail */
+  .hero-stats{
+    display:grid; grid-template-columns:repeat(4,1fr);
+    margin-top:clamp(22px, 3vh, 36px);
+    border-top:1px solid var(--ink); border-bottom:1px solid var(--ink);
+  }
+  .hero-stat{
+    padding:clamp(12px, 1.6vh, 18px) 20px clamp(12px, 1.6vh, 18px) 0;
+    border-right:1px solid rgba(14,14,12,0.15);
+  }
+  .hero-stat:last-child{border-right:none; padding-right:0;}
+  .hero-stat:not(:first-child){padding-left:20px;}
+  .hero-stat .k{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px; color:var(--mute); letter-spacing:0.1em; text-transform:uppercase;
+  }
+  .hero-stat .v{
+    font-size:clamp(30px, 2.8vw, 40px); font-weight:700; letter-spacing:-0.03em;
+    line-height:1; margin-top:6px;
+  }
+  .hero-stat .v em{font-family:'Fraunces',serif; font-style:italic; font-weight:600; color:var(--rust);}
+  .hero-stat .d{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--ink-2); margin-top:6px;}
+
+  /* ============ TECHNOLOGY ============ */
+  #technology{background:var(--ink); color:var(--paper);}
+  #technology::before{
+    content:'';
+    position:absolute; inset:0;
+    background-image:radial-gradient(circle, rgba(198,241,84,0.07) 1px, transparent 1px);
+    background-size:24px 24px;
+    pointer-events:none;
+  }
+  #technology > .container{position:relative; z-index:1;}
+  #technology .tag{color:var(--signal);}
+  #technology h2.h em{color:var(--signal);}
+  #technology .lede{color:rgba(242,239,232,0.7);}
+
+  .arch{
+    margin-top:clamp(20px, 3vh, 36px);
+    display:grid;
+    grid-template-columns:170px 1fr;
+    gap:0;
+    border:1px solid rgba(242,239,232,0.2);
+  }
+  .arch-row{display:contents;}
+  .arch-label{
+    padding:clamp(10px, 1.4vh, 16px) 16px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px; color:var(--signal); letter-spacing:0.12em;
+    border-right:1px solid rgba(242,239,232,0.2);
+    border-bottom:1px solid rgba(242,239,232,0.2);
+    display:flex; flex-direction:column; justify-content:center; gap:4px;
+  }
+  .arch-label .num{color:rgba(242,239,232,0.4); font-size:10px;}
+  .arch-nodes{
+    padding:clamp(10px, 1.4vh, 16px); display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    border-bottom:1px solid rgba(242,239,232,0.2);
+  }
+  .arch-row:last-child .arch-label,
+  .arch-row:last-child .arch-nodes{border-bottom:none;}
+  .arch-node{
+    border:1px solid rgba(242,239,232,0.18);
+    padding:clamp(10px, 1.3vh, 14px);
+    background:rgba(242,239,232,0.02);
+    transition:border-color .2s, background .2s;
+  }
+  .arch-node:hover{border-color:var(--signal); background:rgba(198,241,84,0.05);}
+  .arch-node .t{font-size:15px; font-weight:600; letter-spacing:-0.01em;}
+  .arch-node .d{font-family:'JetBrains Mono',monospace; font-size:11px; color:rgba(242,239,232,0.55); margin-top:4px; line-height:1.4;}
+  .arch-chains{
+    padding:clamp(10px, 1.4vh, 16px); display:flex; flex-wrap:wrap; gap:8px;
+    border-bottom:1px solid rgba(242,239,232,0.2);
+  }
+  .arch-chains .chip{
+    font-family:'JetBrains Mono',monospace; font-size:12px;
+    padding:6px 12px;
+    border:1px solid var(--signal);
+    color:var(--signal);
+  }
+
+  /* ============ COMPARISON ============ */
+  #comparison{padding-top:clamp(36px, 5.5vh, 60px);}
+  .cmp-wrap{margin-top:clamp(18px, 2.6vh, 32px); overflow-x:auto;}
+  .cmp{
+    width:100%; border-collapse:collapse; min-width:800px;
+    font-size:14px;
+  }
+  .cmp thead th{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px;
+    letter-spacing:0.1em; color:var(--mute);
+    text-align:center; padding:10px 18px;
+    border-bottom:1.5px solid var(--ink);
+  }
+  .cmp thead th:first-child{text-align:left;}
+  .cmp thead th.us{background:var(--signal); color:var(--ink); font-weight:700;}
+  .cmp tbody td{
+    padding:clamp(6px, 0.8vh, 9px) 18px; text-align:center;
+    border-bottom:1px solid rgba(14,14,12,0.1);
+  }
+  .cmp tbody td:first-child{text-align:left; font-weight:600;}
+  .cmp tbody td.mute{color:var(--mute);}
+  .cmp tbody td.us{background:rgba(198,241,84,0.2); font-weight:700;}
+  .cmp .neg{color:var(--rust);}
+
+  /* advantage cards */
+  .advantages{
+    display:grid; grid-template-columns:repeat(4,1fr);
+    gap:0; margin-top:clamp(22px, 3vh, 36px);
+    border:1.5px solid var(--ink);
+  }
+  .adv{
+    padding:clamp(12px, 1.6vh, 18px);
+    border-right:1px solid var(--ink);
+    display:flex; flex-direction:column; justify-content:space-between;
+    min-height:clamp(100px, 12vh, 130px);
+  }
+  .adv:last-child{border-right:none;}
+  .adv .num{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--mute); letter-spacing:0.12em;}
+  .adv .v{font-size:clamp(30px, 2.8vw, 40px); font-weight:700; letter-spacing:-0.03em; line-height:1; margin-top:10px;}
+  .adv .v em{font-family:'Fraunces',serif; font-style:italic; font-weight:600; color:var(--rust);}
+  /* pull single-glyph symbols flush-left to match textual values like "<1s" */
+  .adv .v.sym{text-indent:-0.18em;}
+  .adv .l{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--ink-2); margin-top:8px;}
+
+  /* ============ USE CASES ============ */
+  #usecases{background:var(--paper-2); padding:clamp(48px, 7vh, 72px) 40px;}
+  .uc-grid{
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:0; margin-top:clamp(28px, 4vh, 44px);
+    border-top:1.5px solid var(--ink);
+    border-left:1.5px solid var(--ink);
+  }
+  .uc{
+    padding:clamp(20px, 2.6vh, 26px);
+    border-right:1.5px solid var(--ink);
+    border-bottom:1.5px solid var(--ink);
+    background:var(--paper);
+    display:flex; flex-direction:column; justify-content:space-between;
+    min-height:clamp(180px, 22vh, 220px);
+    position:relative;
+    transition:background .2s;
+  }
+  .uc:hover{background:var(--signal); }
+  .uc-head{display:flex; justify-content:space-between; align-items:center;}
+  .chip{
+    font-family:'JetBrains Mono',monospace; font-size:11px;
+    padding:4px 10px; border:1px solid var(--ink);
+    letter-spacing:0.08em;
+  }
+  .chip.signal{background:var(--signal); border-color:var(--signal);}
+  .chip.solid{background:var(--ink); color:var(--paper);}
+  .uc .num{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--mute);}
+  .uc .t{font-size:clamp(20px, 1.8vw, 24px); font-weight:700; letter-spacing:-0.02em; margin-top:14px; line-height:1.1;}
+  .uc .d{font-size:14px; color:var(--ink-2); margin-top:10px; line-height:1.45;}
+  .uc .call{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--mute); margin-top:14px;}
+  .uc:hover .d, .uc:hover .call{color:var(--signal-ink);}
+
+  /* ============ CONTACT ============ */
+  #contact{padding-top:clamp(48px, 7vh, 72px);}
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(36px, 4.5vw, 64px); margin-top:clamp(24px, 3.5vh, 40px);}
+  .contact-info .lede{margin-top:18px;}
+  .contact-stamps{
+    margin-top:32px;
+    display:grid; grid-template-columns:1fr 1fr; gap:0;
+    border:1px solid var(--ink);
+  }
+  .contact-stamp{padding:16px; border-right:1px solid var(--ink);}
+  .contact-stamp:last-child{border-right:none;}
+  .contact-stamp .k{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--mute); letter-spacing:0.1em;}
+  .contact-stamp .v{font-size:17px; font-weight:600; margin-top:6px;}
+
+  form.contact-form{
+    background:var(--ink); color:var(--paper);
+    padding:clamp(24px, 3vh, 32px); border-radius:2px;
+  }
+  form label{
+    display:block;
+    font-family:'JetBrains Mono',monospace; font-size:12px;
+    letter-spacing:0.1em; color:var(--signal);
+    margin-bottom:6px; text-transform:uppercase;
+  }
+  form .row + .row{margin-top:clamp(14px, 2vh, 18px);}
+  form input, form select, form textarea{
+    width:100%;
+    background:transparent;
+    border:none;
+    border-bottom:1px solid rgba(242,239,232,0.3);
+    padding:10px 0;
+    font-size:16px;
+    color:var(--paper);
+    font-family:'Inter Tight',sans-serif;
+    outline:none;
+    transition:border-color .2s;
+  }
+  form input::placeholder, form textarea::placeholder{color:rgba(242,239,232,0.4);}
+  form input:focus, form select:focus, form textarea:focus{border-color:var(--signal);}
+  form select{appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%23C6F154' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 4px center;}
+  form select option{background:var(--ink); color:var(--paper);}
+  form textarea{resize:vertical; min-height:clamp(72px, 10vh, 96px);}
+  form .submit{
+    width:100%;
+    background:var(--signal); color:var(--signal-ink);
+    padding:14px;
+    font-family:'Inter Tight',sans-serif; font-size:15px; font-weight:700;
+    letter-spacing:0.02em;
+    border:none; cursor:pointer;
+    margin-top:clamp(18px, 2.6vh, 26px);
+    border-radius:2px;
+    transition:background .15s, transform .15s;
+  }
+  form .submit:hover{background:var(--paper); transform:translateY(-2px);}
+
+  /* ============ FOOTER ============ */
+  footer{
+    border-top:1px solid var(--ink);
+    padding:24px 40px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px; color:var(--mute);
+  }
+  footer .ft{display:flex; justify-content:space-between; align-items:center; max-width:1400px; margin:0 auto; flex-wrap:wrap; gap:16px;}
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:1024px){
+    .hero-grid{grid-template-columns:1fr; gap:40px;}
+    .hero-stats{grid-template-columns:repeat(2,1fr);}
+    .hero-stat:nth-child(2){border-right:none;}
+    .advantages{grid-template-columns:repeat(2,1fr);}
+    .adv:nth-child(2){border-right:none;}
+    .uc-grid{grid-template-columns:repeat(2,1fr);}
+    .arch{grid-template-columns:1fr;}
+    .arch-label{border-right:none;}
+    .arch-nodes{grid-template-columns:repeat(2,1fr);}
+    .contact-grid{grid-template-columns:1fr; gap:48px;}
+  }
+  @media (max-width:680px){
+    section{padding:72px 20px;}
+    .nav-bar{padding:16px 20px;}
+    nav{display:none;}
+    nav.open{display:flex; flex-direction:column; position:absolute; top:100%; left:0; right:0; background:var(--paper); border-bottom:1px solid var(--ink); padding:24px; gap:18px; align-items:stretch;}
+    .hamburger{display:block;}
+    .hero-stats{grid-template-columns:1fr;}
+    .hero-stat,
+    .hero-stat:not(:first-child){border-right:none; border-bottom:1px solid rgba(14,14,12,0.15); padding:20px 0;}
+    .hero-stat:last-child{border-bottom:none;}
+    .advantages{grid-template-columns:1fr;}
+    .adv{border-right:none; border-bottom:1px solid var(--ink);}
+    .adv:last-child{border-bottom:none;}
+    .uc-grid{grid-template-columns:1fr;}
+    .arch-nodes{grid-template-columns:1fr;}
+    footer{padding:24px 20px;}
+  }
+</style>
+<script type='text/javascript' nonce='McXdMniw2+pKnWLWpx4VFg==' src='https://claude.ai/myeF1kGiOkUA86rFWpWpTykWOELyZTobqsnKyTgNSE5i7LRpZSR51KPeXk5Advl-SxStyR_NOrYdnW4YWLnajScxuFPKV0TiZECmP7eVM1yRcBjIdTBxM08aHz730undjC3DUzKe9eGksjqztmA0ylUtdXDteT7ngFmCZJivNWLFkSDQoCc5zH8Jt3z97BqU9gOh5_sexRbhHpUbDKOlYlyObAbU4a1KfnU1EoU30JdlAa1TzdBxeLJa7SRF0COi2j1lGOp-7wgH4StU8sZdrUvTjZ01YM-2DNBMNEMEg0yBJS2-45fOFPiLX272JIr9obaAyFmm8ii3JF4E9IXeR92BoaUHxK9eYcU0XxgfwhEf0qIuyaUZuk18Q9G8fgG21Fl8rAZC6zgDu4qxWfqgwdlsbsR3-BBJ7y1LvN52PDFUgZEbAOSDZrdYUadFPNcINuLxPZ2x5KGHz2p41z2PINUsv98mK3Muo7yiCGeovRGGMjSpOXogvP8-N3eX6ipByro3IR4oAGPG7qdQ_xZ1Ucuu1Vhhvmboqlrj0Jg0eB0IuJ0'></script></head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header>
+  <div class="nav-bar">
+    <a href="#hero" class="brand">
+      <svg viewbox="0 0 48 48" fill="none">
+        <g stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
+          <line x1="7" y1="36" x2="7" y2="32"/>
+          <line x1="14" y1="36" x2="14" y2="27"/>
+          <line x1="21" y1="36" x2="21" y2="22"/>
+          <line x1="28" y1="36" x2="28" y2="17"/>
+          <line x1="35" y1="36" x2="35" y2="22"/>
+          <line x1="42" y1="36" x2="42" y2="27"/>
+        </g>
+        <circle cx="28" cy="13" r="3.2" fill="currentColor"/>
+        <circle cx="28" cy="13" r="6.5" stroke="currentColor" stroke-width="1.2" opacity="0.35"/>
+      </svg>
+      <span class="wd">agent<em>hill</em></span>
+    </a>
+    <nav id="mainNav">
+      <a href="#technology">Technology</a>
+      <a href="#comparison">Why us</a>
+      <a href="#usecases">Use cases</a>
+      <a href="#contact" class="cta">Contact</a>
+    </nav>
+    <button class="hamburger" aria-label="Menu" onclick="document.getElementById(&#39;mainNav&#39;).classList.toggle(&#39;open&#39;)">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+<!-- ========== HERO ========== -->
+<section id="hero">
+  <div class="container">
+    <div class="tag">Payment protocol</div>
+    <h1 class="display">Payment layer<br>for the <em>agentic</em><br>economy</h1>
+
+    <div class="hero-grid">
+      <div>
+        <p class="hero-sub">Instant, sub-cent, chain-agnostic stablecoin micropayments — with DeFi composability and compliant privacy. Built for when agents outnumber users.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-primary">Get early access →</a>
+          <a href="#technology" class="btn btn-ghost">See how it works</a>
+        </div>
+      </div>
+      <div class="hero-receipt" aria-hidden="true">
+        <div class="stamp">&lt;1s SETTLED</div>
+        <div class="head">
+          <span class="title">AGENTHILL · RECEIPT</span>
+          <span>#A28F01</span>
+        </div>
+        <div class="row"><span class="k">from</span><span class="v">@agent/a</span></div>
+        <div class="row"><span class="k">to</span><span class="v">@agent/b</span></div>
+        <div class="row"><span class="k">route</span><span class="v">tron → eth</span></div>
+        <div class="row"><span class="k">hops</span><span class="v">2</span></div>
+        <div class="row"><span class="k">fee</span><span class="v green">$0.0000002</span></div>
+        <div class="row"><span class="k">privacy</span><span class="v green">on</span></div>
+        <div class="row"><span class="k">yield</span><span class="v green">DeFi · 2.2%</span></div>
+        <div class="total"><span>total</span><span>$0.00020002</span></div>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="k">Settlement</div>
+        <div class="v">&lt;1s</div>
+        <div class="d">Cross-chain</div>
+      </div>
+      <div class="hero-stat">
+        <div class="k">Fees</div>
+        <div class="v">0.01%</div>
+        <div class="d">Even for micropayments</div>
+      </div>
+      <div class="hero-stat">
+        <div class="k">Throughput</div>
+        <div class="v"><em>∞</em></div>
+        <div class="d">Off-chain</div>
+      </div>
+      <div class="hero-stat">
+        <div class="k">Chains</div>
+        <div class="v">Any</div>
+        <div class="d">EVM · Solana · Tron · Base</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TECHNOLOGY ========== -->
+<section id="technology">
+  <div class="container">
+    <div class="tag">Technology</div>
+    <h2 class="h">How It <em>Works</em></h2>
+    <p class="lede">Off-chain payment channels that decouple transaction throughput from blockchain capacity. Four layers, one protocol.</p>
+
+    <div class="arch">
+      <div class="arch-row">
+        <div class="arch-label"><span class="num">01 / LAYER</span>APPLICATION</div>
+        <div class="arch-nodes">
+          <div class="arch-node"><div class="t">AI Agent SDK</div><div class="d">Wallet.init() · Payment signing · Chain selection</div></div>
+          <div class="arch-node"><div class="t">x402 Standard</div><div class="d">HTTP 402 Payment Required, native middleware</div></div>
+          <div class="arch-node"><div class="t">REST API</div><div class="d">Payment gateway · Webhooks · Receipts</div></div>
+        </div>
+      </div>
+
+      <div class="arch-row">
+        <div class="arch-label"><span class="num">02 / LAYER</span>PROTOCOL</div>
+        <div class="arch-nodes">
+          <div class="arch-node"><div class="t">Payment Channels</div><div class="d">Off-chain balances · Only open &amp; close on-chain</div></div>
+          <div class="arch-node"><div class="t">HTLCs</div><div class="d">Hash time-locked · Atomic or nothing</div></div>
+          <div class="arch-node"><div class="t">DeFi Yield</div><div class="d">Locked stablecoins yield DeFi returns</div></div>
+        </div>
+      </div>
+
+      <div class="arch-row">
+        <div class="arch-label"><span class="num">03 / LAYER</span>NETWORK</div>
+        <div class="arch-nodes">
+          <div class="arch-node"><div class="t">Multi-hop Routing</div><div class="d">Pathfinding over the liquidity graph</div></div>
+          <div class="arch-node"><div class="t">Hub Network</div><div class="d">Relay nodes · Routing fees · Incentive aligned</div></div>
+          <div class="arch-node"><div class="t">Privacy Layer</div><div class="d">Compliant identity shielding</div></div>
+        </div>
+      </div>
+
+      <div class="arch-row">
+        <div class="arch-label"><span class="num">04 / LAYER</span>SETTLEMENT</div>
+        <div class="arch-chains">
+          <span class="chip">Ethereum</span>
+          <span class="chip">Solana</span>
+          <span class="chip">Tron</span>
+          <span class="chip">Base</span>
+          <span class="chip">Any-EVM</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== COMPARISON ========== -->
+<section id="comparison">
+  <div class="container">
+    <div class="tag">Why AgentHill</div>
+    <h2 class="h">Built for the <em>machine</em><br>economy</h2>
+    <p class="lede">Purpose-built payment infrastructure where legacy systems fall short. Benchmarked against the obvious alternatives.</p>
+
+    <div class="cmp-wrap">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th>FEATURE</th>
+            <th>VISA / MC</th>
+            <th>SOLANA</th>
+            <th>LIGHTNING</th>
+            <th class="us">AGENTHILL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Fees</td><td class="mute">2.9% + $0.30</td><td class="mute">Network-dep.</td><td>0.01–0.2%</td><td class="us">0.01–0.2%</td></tr>
+          <tr><td>Settlement</td><td class="mute">T+2 days</td><td class="mute">2–5 sec</td><td>&lt;1 sec</td><td class="us">&lt;1 sec</td></tr>
+          <tr><td>TPS ceiling</td><td class="mute">&lt;50K</td><td class="mute">&lt;1M</td><td>Unlimited</td><td class="us">Unlimited</td></tr>
+          <tr><td>Chain support</td><td class="mute">Off-chain</td><td class="mute">Single</td><td class="mute">Single</td><td class="us">Chain-agnostic</td></tr>
+          <tr><td>Native stablecoins</td><td>✓</td><td>✓</td><td class="neg">—</td><td class="us">✓</td></tr>
+          <tr><td>DeFi composability</td><td class="neg">—</td><td>✓</td><td class="neg">—</td><td class="us">✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="advantages">
+      <div class="adv">
+        <div class="num">01 · SPEED</div>
+        <div>
+          <div class="v">&lt;1s</div>
+          <div class="l">Instant settlement, cross-chain</div>
+        </div>
+      </div>
+      <div class="adv">
+        <div class="num">02 · SCALE</div>
+        <div>
+          <div class="v sym"><em>∞</em></div>
+          <div class="l">Unlimited TPS, off-chain</div>
+        </div>
+      </div>
+      <div class="adv">
+        <div class="num">03 · PRIVACY</div>
+        <div>
+          <div class="v sym">◐</div>
+          <div class="l">Compliant identity shielding</div>
+        </div>
+      </div>
+      <div class="adv">
+        <div class="num">04 · UNITY</div>
+        <div>
+          <div class="v sym">≡</div>
+          <div class="l">Chain-agnostic, one balance</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== USE CASES ========== -->
+<section id="usecases">
+  <div class="container">
+    <div class="tag">Use cases</div>
+    <h2 class="h">Where agents <em>pay</em> agents</h2>
+    <p class="lede">Every autonomous system that moves value benefits. Here are the first six.</p>
+
+    <div class="uc-grid">
+      <div class="uc">
+        <div>
+          <div class="uc-head"><span class="chip signal">PRIMARY</span><span class="num">01</span></div>
+          <div class="t">Data Feeds</div>
+          <div class="d">Video, text, digits — sold at the granularity AI agents need. Per-request, per-byte.</div>
+        </div>
+        <div class="call">$ stream.open — pay/token</div>
+      </div>
+      <div class="uc">
+        <div>
+          <div class="uc-head"><span class="chip signal">PRIMARY</span><span class="num">02</span></div>
+          <div class="t">AI Computing</div>
+          <div class="d">Decentralized compute leasing. Agents as 24/7 representatives, maximizing revenue.</div>
+        </div>
+        <div class="call">$ lease.gpu — pay/second</div>
+      </div>
+      <div class="uc">
+        <div>
+          <div class="uc-head"><span class="chip signal">PRIMARY</span><span class="num">03</span></div>
+          <div class="t">Web Scraping</div>
+          <div class="d">No eyeballs for ads. Per-request micropayments as the new web monetization model.</div>
+        </div>
+        <div class="call">$ GET /page — 402 required</div>
+      </div>
+      <div class="uc">
+        <div>
+          <div class="uc-head"><span class="chip solid">SECONDARY</span><span class="num">04</span></div>
+          <div class="t">Prediction Markets</div>
+          <div class="d">Millions of micro-bets without friction. Lower limits, higher volume, agentic discovery.</div>
+        </div>
+        <div class="call">$ bet.place — pay/outcome</div>
+      </div>
+      <div class="uc">
+        <div>
+          <div class="uc-head"><span class="chip solid">SECONDARY</span><span class="num">05</span></div>
+          <div class="t">Agent↔agent Commerce</div>
+          <div class="d">Autonomous systems exchange value without a human in the loop or a credit card.</div>
+        </div>
+        <div class="call">$ a2a.invoke — pay/call</div>
+      </div>
+      <div class="uc">
+        <div>
+          <div class="uc-head"><span class="chip solid">SECONDARY</span><span class="num">06</span></div>
+          <div class="t">Subscription Unbundling</div>
+          <div class="d">Pay per article, per MB, per API call — only for what you actually use.</div>
+        </div>
+        <div class="call">$ pay.as.you.go — pay/use</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="tag">Get in touch</div>
+        <h2 class="h">Let’s build the<br>payment layer<br>for <em>agents</em></h2>
+        <p class="lede">Integrating AgentHill into your agent stack, joining the team, or just curious — drop a line.</p>
+
+      </div>
+
+      <form class="contact-form" id="contactForm" action="https://formspree.io/f/mojyngrb" method="POST" onsubmit="handleSubmit(event)">
+        <div class="row">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@domain.xyz" required="">
+        </div>
+        <div class="row">
+          <label for="reason">Reason of contact</label>
+          <select id="reason" name="reason" required="">
+            <option value="" disabled="" selected="">Select a reason...</option>
+            <option value="integration">Integration partnership</option>
+            <option value="investment">Investment inquiry</option>
+            <option value="technical">Technical question</option>
+            <option value="media">Media / press</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="row">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell us about your agent stack..." required=""></textarea>
+        </div>
+        <button type="submit" class="submit">Submit →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="ft">
+    <div>© 2026 AgentHill — payment layer for the agentic economy.</div>
+  </div>
+</footer>
+
+<script>
+  // close mobile nav on link tap
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', () => document.getElementById('mainNav').classList.remove('open'));
+  });
+
+  function handleSubmit(e){
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('.submit');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    fetch(form.action, { method:'POST', body:new FormData(form), headers:{'Accept':'application/json'} })
+      .then(r => {
+        if (r.ok) { btn.textContent = '✓ Received — we’ll reply soon.'; btn.style.background = 'var(--signal)'; form.reset(); }
+        else { btn.textContent = 'Error — try again'; btn.style.background = 'var(--rust)'; btn.style.color = 'var(--paper)'; }
+        setTimeout(() => { btn.textContent = 'Send transmission →'; btn.style.background = ''; btn.style.color = ''; btn.disabled = false; }, 3500);
+      })
+      .catch(() => {
+        btn.textContent = 'Error — try again'; btn.style.background = 'var(--rust)'; btn.style.color = 'var(--paper)';
+        setTimeout(() => { btn.textContent = 'Send transmission →'; btn.style.background = ''; btn.style.color = ''; btn.disabled = false; }, 3500);
+      });
+  }
+</script>
+
+</body>
+</html>
