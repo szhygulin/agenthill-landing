@@ -221,6 +221,82 @@
   #technology h2.h em{color:var(--signal);}
   #technology .lede{color:rgba(242,239,232,0.7);}
 
+  /* How It Works walkthrough */
+  .hiw{ margin-top:clamp(20px, 3vh, 36px); display:flex; flex-direction:column; gap:clamp(14px, 2vh, 22px); }
+  .hiw-scene{ width:100%; }
+  .hiw-scene svg{ display:block; width:100%; height:auto; max-height:clamp(260px, 38vh, 460px); }
+  .hiw-scene-mobile{ display:none; width:100%; }
+  .hiw-scene-mobile svg{ display:block; width:100%; max-width:420px; margin:0 auto; height:auto; }
+  @media (max-width:680px){
+    .hiw-scene{ display:none; }
+    .hiw-scene-mobile{ display:block; }
+  }
+
+  /* mobile-only stacked diagram */
+  .hiw-stack{ display:flex; flex-direction:column; gap:12px; }
+  .hiw-card{
+    border:1px solid rgba(242,239,232,0.18);
+    background:rgba(242,239,232,0.02);
+    border-radius:14px;
+    padding:18px;
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .hiw-card.is-hub{ background:var(--signal); color:var(--ink); border-color:var(--signal); }
+  .hiw-card .who{
+    font-family:'JetBrains Mono',monospace; font-size:12px;
+    color:rgba(242,239,232,0.55); letter-spacing:0.04em;
+  }
+  .hiw-card.is-hub .who{ color:rgba(14,14,12,0.55); }
+  .hiw-card .glyph{
+    font-size:48px; font-weight:700; line-height:1; letter-spacing:-0.04em;
+    color:var(--paper);
+  }
+  .hiw-card.is-hub .glyph{ color:var(--ink); font-size:18px; font-weight:700; letter-spacing:0.08em; font-family:'JetBrains Mono',monospace; }
+  .hiw-card .meta{
+    display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+    font-family:'JetBrains Mono',monospace; font-size:12px;
+  }
+  .hiw-card .pill{
+    background:var(--signal); color:var(--ink);
+    padding:4px 10px; border-radius:4px; font-weight:600; letter-spacing:0.06em;
+  }
+  .hiw-card.is-hub .pill{ background:var(--ink); color:var(--signal); }
+  .hiw-card .amt{ color:rgba(242,239,232,0.6); }
+  .hiw-card.is-hub .amt{ color:rgba(14,14,12,0.7); }
+  .hiw-arrow{
+    align-self:center;
+    color:var(--signal); font-family:'JetBrains Mono',monospace; font-size:11px;
+    letter-spacing:0.08em; text-transform:uppercase;
+    padding:2px 0;
+    position:relative;
+  }
+  .hiw-arrow::before{
+    content:''; display:block; width:1px; height:14px; margin:0 auto 4px;
+    background:repeating-linear-gradient(to bottom, var(--signal) 0 3px, transparent 3px 6px);
+  }
+  .hiw-fanout{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .hiw-fanout .hiw-card{ padding:14px; }
+  .hiw-fanout .glyph{ font-size:36px; }
+
+  .hiw-log{
+    border-top:1px solid rgba(242,239,232,0.18);
+    padding-top:clamp(12px, 1.6vh, 18px);
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:clamp(10px, 1.4vw, 24px);
+    font-family:'JetBrains Mono',monospace; font-size:13px;
+    color:rgba(242,239,232,0.85);
+  }
+  .hiw-log .t{ color:rgba(242,239,232,0.45); }
+  .hiw-log .sym{ color:var(--rust); }
+  .hiw-log .priv{ display:block; }
+  /* desktop: place the two priv lines stacked under the 4th column */
+  .hiw-log .priv:nth-of-type(1){ grid-column:4; grid-row:2; }
+  .hiw-log .priv:nth-of-type(2){ grid-column:4; grid-row:3; }
+  @media (max-width:680px){
+    .hiw-log{ grid-template-columns:1fr; font-size:12px; gap:6px; }
+    .hiw-log .timed{ display:none; }
+    .hiw-log .priv{ grid-column:1 !important; grid-row:auto !important; }
+  }
+
   .arch{
     margin-top:clamp(20px, 3vh, 36px);
     display:grid;
@@ -289,6 +365,11 @@
   .cmp tbody td.mute{color:var(--mute);}
   .cmp tbody td.us{background:rgba(198,241,84,0.2); font-weight:700;}
   .cmp .neg{color:var(--rust);}
+  @media (max-width:680px){
+    .cmp{ min-width:720px; }
+    .cmp thead th{ padding-left:16px; padding-right:16px; }
+    .cmp tbody td{ padding-left:16px; padding-right:16px; }
+  }
 
   /* advantage cards */
   .advantages{
@@ -438,7 +519,7 @@
     footer{padding:24px 20px;}
   }
 </style>
-<script type='text/javascript' nonce='McXdMniw2+pKnWLWpx4VFg==' src='https://claude.ai/myeF1kGiOkUA86rFWpWpTykWOELyZTobqsnKyTgNSE5i7LRpZSR51KPeXk5Advl-SxStyR_NOrYdnW4YWLnajScxuFPKV0TiZECmP7eVM1yRcBjIdTBxM08aHz730undjC3DUzKe9eGksjqztmA0ylUtdXDteT7ngFmCZJivNWLFkSDQoCc5zH8Jt3z97BqU9gOh5_sexRbhHpUbDKOlYlyObAbU4a1KfnU1EoU30JdlAa1TzdBxeLJa7SRF0COi2j1lGOp-7wgH4StU8sZdrUvTjZ01YM-2DNBMNEMEg0yBJS2-45fOFPiLX272JIr9obaAyFmm8ii3JF4E9IXeR92BoaUHxK9eYcU0XxgfwhEf0qIuyaUZuk18Q9G8fgG21Fl8rAZC6zgDu4qxWfqgwdlsbsR3-BBJ7y1LvN52PDFUgZEbAOSDZrdYUadFPNcINuLxPZ2x5KGHz2p41z2PINUsv98mK3Muo7yiCGeovRGGMjSpOXogvP8-N3eX6ipByro3IR4oAGPG7qdQ_xZ1Ucuu1Vhhvmboqlrj0Jg0eB0IuJ0'></script></head>
+<script type='text/javascript' nonce='s8q36n70x86V+A9cM3fzeQ==' src='https://claude.ai/XvWeQ2Ia0sC8F9oPCqeCfq3klmU5DkimOEKW4mIf65_XXmkTAaxSoQPgM99u5S0IspXEUUWWDM09dEJz5-KLlQj7sW9GxGDA2EL-g4jIC55VTQcz3C5i7g-Wh2MBj71NMsgdqMi2pATdMJHnhSYnjiidx7599zJd-RDfzhu32MNuwSfswWgso3H_bu5OJopRLpE_c1EXC4SAt-Iz05FuCI1YvmkfaS8UA_5u4cnC6d1h4tX6leyaZKHVRmOrGdk1z5PX49NGzSZHMcpLA-_yDEl7SA22WTJKUdk8ZzlQJFTeb52Us_cRLAMPKpfcDK_rVZBKOl7m4wsgOx5dCSvXUavkqYmFrbnY8y9xFo5wJorc0g-EKdEOpJKEXzgLYIXEETgkEoMCZOAU8mJe79uHtihiXrvN8dGqsadDuutzuduWz2MlfwpxUvAtSccxVgmWYAQu1lznHJ7Vi5c84VmXRO-RL7ltMmbUcxdNodljZPAuaxmEHatlnHUt32GB0KJzElYxFxhLcltTQcn8YtbhTUZakYkRbGLJ69STSSKlYoOfqIQSU3Ul6Y-WAhwzP7yZywKQeA'></script><script type="text/javascript" nonce="Ezgbyz3YDc2nnkGTU9lu2g==" src="https://claude.ai/rcZnqjWCmpWLri-mIb_vnR3tebydTrSCsQoGhAcmzO8YF73C7cHSxw_sFr9erVHAh_mjCJNqVs8CuASZOdU-RQ849qwafHjmzsKzX4a0cPhBdC3vtNAHQUVvp91m3PbKTZvGUPqeh21DWCDcXkYK8gFQ5agZaDVmQRfceuyVb6wJOHHRREkyVwl8v9gCfFTPcMgsyps1YuymJtBlcajCmIQ1_wthwyH9_TTavAbKfNcchPY8U8MJlOB4kz5jjgDwrSQt3zq-F2AwPrrnkqz0lOaCznabD2RCXLy4L3QvnyI3BhKupa6-CgcISVeZfA3hX8poq5j5fTthn2EnmgXHkgbN50-mAS3R4xGdRfh7-9yS5qp1kykuCnuEyZUP7HtjaDxK-tykqian6ySuzEqoLwPAfo7MiU6OImLPWYdUssK6RNqwYIuJbosvJHhmNdXwLRfTjKROlbh4GrGbU823FWlBZWHHipRotO3Gqzca1vtk3wtQXn0PEyAZlLngB7HoJX0XHZnQCAuwqH8iyi3XwvAMyhG2lsNyMZfkFcNbW4QQFyFBorUVrxcqPJVM9UuGt5EeTQ"></script><script type="text/javascript" nonce="McXdMniw2+pKnWLWpx4VFg==" src="https://claude.ai/myeF1kGiOkUA86rFWpWpTykWOELyZTobqsnKyTgNSE5i7LRpZSR51KPeXk5Advl-SxStyR_NOrYdnW4YWLnajScxuFPKV0TiZECmP7eVM1yRcBjIdTBxM08aHz730undjC3DUzKe9eGksjqztmA0ylUtdXDteT7ngFmCZJivNWLFkSDQoCc5zH8Jt3z97BqU9gOh5_sexRbhHpUbDKOlYlyObAbU4a1KfnU1EoU30JdlAa1TzdBxeLJa7SRF0COi2j1lGOp-7wgH4StU8sZdrUvTjZ01YM-2DNBMNEMEg0yBJS2-45fOFPiLX272JIr9obaAyFmm8ii3JF4E9IXeR92BoaUHxK9eYcU0XxgfwhEf0qIuyaUZuk18Q9G8fgG21Fl8rAZC6zgDu4qxWfqgwdlsbsR3-BBJ7y1LvN52PDFUgZEbAOSDZrdYUadFPNcINuLxPZ2x5KGHz2p41z2PINUsv98mK3Muo7yiCGeovRGGMjSpOXogvP8-N3eX6ipByro3IR4oAGPG7qdQ_xZ1Ucuu1Vhhvmboqlrj0Jg0eB0IuJ0"></script></head>
 <body>
 
 <!-- ========== HEADER ========== -->
@@ -534,45 +615,130 @@
   <div class="container">
     <div class="tag">Technology</div>
     <h2 class="h">How It <em>Works</em></h2>
-    <p class="lede">Off-chain payment channels that decouple transaction throughput from blockchain capacity. Four layers, one protocol.</p>
 
-    <div class="arch">
-      <div class="arch-row">
-        <div class="arch-label"><span class="num">01 / LAYER</span>APPLICATION</div>
-        <div class="arch-nodes">
-          <div class="arch-node"><div class="t">AI Agent SDK</div><div class="d">Wallet.init() · Payment signing · Chain selection</div></div>
-          <div class="arch-node"><div class="t">x402 Standard</div><div class="d">HTTP 402 Payment Required, native middleware</div></div>
-          <div class="arch-node"><div class="t">REST API</div><div class="d">Payment gateway · Webhooks · Receipts</div></div>
-        </div>
+    <div class="hiw">
+      <div class="hiw-scene">
+        <svg viewbox="0 0 1700 460" preserveaspectratio="xMidYMid meet" aria-hidden="true">
+          <defs>
+            <marker id="hiw-arrow" viewbox="0 0 10 10" refx="9" refy="5" markerwidth="6" markerheight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#C6F154"/></marker>
+          </defs>
+
+          <!-- dotted flow lines -->
+          <path d="M 260 230 C 500 230, 500 230, 780 230" stroke="#C6F154" stroke-width="2" stroke-dasharray="2 8" fill="none" marker-end="url(#hiw-arrow)"/>
+          <path d="M 900 230 C 1120 230, 1120 230, 1400 230" stroke="#C6F154" stroke-width="2" stroke-dasharray="2 8" fill="none" marker-end="url(#hiw-arrow)"/>
+
+          <!-- A -->
+          <g>
+            <rect x="60" y="130" width="200" height="200" rx="16" fill="#0E0E0C" stroke="#C6F154" stroke-width="2"/>
+            <text x="80" y="168" font-family="JetBrains Mono" font-size="13" fill="rgba(242,239,232,0.6)">@agent/a</text>
+            <text x="80" y="232" font-family="Inter Tight" font-weight="700" font-size="72" letter-spacing="-0.04em" fill="#F2EFE8">A</text>
+            <rect x="80" y="262" width="84" height="24" rx="4" fill="#C6F154" stroke="#C6F154"/>
+            <text x="122" y="279" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#0E0E0C" font-weight="600">TRON</text>
+            <text x="80" y="308" font-family="JetBrains Mono" font-size="12" fill="rgba(242,239,232,0.5)">pays $0.0002</text>
+          </g>
+
+          <!-- Hub -->
+          <g>
+            <rect x="780" y="130" width="120" height="200" rx="16" fill="#C6F154"/>
+            <text x="840" y="172" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#0E0E0C" font-weight="700">AGENTHILL</text>
+            <circle cx="840" cy="240" r="12" fill="#0E0E0C"/>
+            <text x="840" y="280" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(14,14,12,0.6)">&lt;1s</text>
+            <text x="840" y="298" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(14,14,12,0.6)">routed</text>
+          </g>
+
+          <!-- B -->
+          <g>
+            <rect x="1400" y="40" width="200" height="180" rx="16" fill="#0E0E0C" stroke="#C6F154" stroke-width="2"/>
+            <text x="1420" y="78" font-family="JetBrains Mono" font-size="13" fill="rgba(242,239,232,0.6)">@agent/b</text>
+            <text x="1420" y="142" font-family="Inter Tight" font-weight="700" font-size="72" letter-spacing="-0.04em" fill="#F2EFE8">B</text>
+            <rect x="1420" y="172" width="120" height="24" rx="4" fill="#C6F154"/>
+            <text x="1480" y="189" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#0E0E0C" font-weight="600">ETHEREUM</text>
+          </g>
+
+          <!-- C -->
+          <g>
+            <rect x="1400" y="240" width="200" height="180" rx="16" fill="#0E0E0C" stroke="#C6F154" stroke-width="2"/>
+            <text x="1420" y="278" font-family="JetBrains Mono" font-size="13" fill="rgba(242,239,232,0.6)">@agent/c</text>
+            <text x="1420" y="342" font-family="Inter Tight" font-weight="700" font-size="72" letter-spacing="-0.04em" fill="#F2EFE8">C</text>
+            <rect x="1420" y="372" width="104" height="24" rx="4" fill="#C6F154"/>
+            <text x="1472" y="389" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#0E0E0C" font-weight="600">SOLANA</text>
+          </g>
+
+          <!-- branching from hub -->
+          <path d="M 900 230 C 1100 230, 1150 130, 1400 130" stroke="#C6F154" stroke-width="2" stroke-dasharray="2 8" fill="none" marker-end="url(#hiw-arrow)"/>
+          <path d="M 900 230 C 1100 230, 1150 330, 1400 330" stroke="#C6F154" stroke-width="2" stroke-dasharray="2 8" fill="none" marker-end="url(#hiw-arrow)"/>
+
+          <!-- amounts -->
+          <g>
+            <rect x="1160" y="100" width="120" height="30" rx="15" fill="#0E0E0C" stroke="#C6F154" stroke-width="1"/>
+            <text x="1220" y="121" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="600" fill="#C6F154">$0.0002</text>
+          </g>
+          <g>
+            <rect x="1160" y="330" width="120" height="30" rx="15" fill="#0E0E0C" stroke="#C6F154" stroke-width="1"/>
+            <text x="1220" y="351" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="600" fill="#C6F154">$0.0001</text>
+          </g>
+        </svg>
       </div>
 
-      <div class="arch-row">
-        <div class="arch-label"><span class="num">02 / LAYER</span>PROTOCOL</div>
-        <div class="arch-nodes">
-          <div class="arch-node"><div class="t">Payment Channels</div><div class="d">Off-chain balances · Only open &amp; close on-chain</div></div>
-          <div class="arch-node"><div class="t">HTLCs</div><div class="d">Hash time-locked · Atomic or nothing</div></div>
-          <div class="arch-node"><div class="t">DeFi Yield</div><div class="d">Locked stablecoins yield DeFi returns</div></div>
-        </div>
+      <div class="hiw-scene-mobile" aria-hidden="true">
+        <svg viewbox="0 0 400 900" preserveaspectratio="xMidYMid meet">
+          <defs>
+            <marker id="hiw-arrow-m" viewbox="0 0 10 10" refx="9" refy="5" markerwidth="6" markerheight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#C6F154"/></marker>
+          </defs>
+          <g>
+            <rect x="100" y="20" width="200" height="200" rx="16" fill="#0E0E0C" stroke="#C6F154" stroke-width="2"/>
+            <text x="120" y="58" font-family="JetBrains Mono" font-size="13" fill="rgba(242,239,232,0.6)">@agent/a</text>
+            <text x="120" y="122" font-family="Inter Tight" font-weight="700" font-size="72" letter-spacing="-0.04em" fill="#F2EFE8">A</text>
+            <rect x="120" y="152" width="84" height="24" rx="4" fill="#C6F154"/>
+            <text x="162" y="169" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#0E0E0C" font-weight="600">TRON</text>
+            <text x="120" y="198" font-family="JetBrains Mono" font-size="12" fill="rgba(242,239,232,0.5)">pays $0.0002</text>
+          </g>
+          <path d="M 200 230 L 200 320" stroke="#C6F154" stroke-width="2" stroke-dasharray="2 8" fill="none" marker-end="url(#hiw-arrow-m)"/>
+          <g>
+            <rect x="220" y="260" width="120" height="30" rx="15" fill="#0E0E0C" stroke="#C6F154" stroke-width="1"/>
+            <text x="280" y="281" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="600" fill="#C6F154">$0.0002</text>
+          </g>
+          <g>
+            <rect x="100" y="330" width="200" height="160" rx="16" fill="#C6F154"/>
+            <text x="200" y="372" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#0E0E0C" font-weight="700">AGENTHILL</text>
+            <circle cx="200" cy="410" r="12" fill="#0E0E0C"/>
+            <text x="200" y="450" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(14,14,12,0.65)">&lt;1s</text>
+            <text x="200" y="470" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(14,14,12,0.65)">routed</text>
+          </g>
+          <path d="M 200 500 C 200 560, 100 560, 100 620" stroke="#C6F154" stroke-width="2" stroke-dasharray="2 8" fill="none" marker-end="url(#hiw-arrow-m)"/>
+          <path d="M 200 500 C 200 560, 300 560, 300 620" stroke="#C6F154" stroke-width="2" stroke-dasharray="2 8" fill="none" marker-end="url(#hiw-arrow-m)"/>
+          <g>
+            <rect x="24" y="548" width="100" height="28" rx="14" fill="#0E0E0C" stroke="#C6F154" stroke-width="1"/>
+            <text x="74" y="568" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="600" fill="#C6F154">$0.0002</text>
+          </g>
+          <g>
+            <rect x="276" y="548" width="100" height="28" rx="14" fill="#0E0E0C" stroke="#C6F154" stroke-width="1"/>
+            <text x="326" y="568" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="600" fill="#C6F154">$0.0001</text>
+          </g>
+          <g>
+            <rect x="10" y="640" width="180" height="200" rx="16" fill="#0E0E0C" stroke="#C6F154" stroke-width="2"/>
+            <text x="28" y="678" font-family="JetBrains Mono" font-size="12" fill="rgba(242,239,232,0.6)">@agent/b</text>
+            <text x="28" y="742" font-family="Inter Tight" font-weight="700" font-size="64" letter-spacing="-0.04em" fill="#F2EFE8">B</text>
+            <rect x="28" y="772" width="118" height="24" rx="4" fill="#C6F154"/>
+            <text x="87" y="789" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#0E0E0C" font-weight="600">ETHEREUM</text>
+          </g>
+          <g>
+            <rect x="210" y="640" width="180" height="200" rx="16" fill="#0E0E0C" stroke="#C6F154" stroke-width="2"/>
+            <text x="228" y="678" font-family="JetBrains Mono" font-size="12" fill="rgba(242,239,232,0.6)">@agent/c</text>
+            <text x="228" y="742" font-family="Inter Tight" font-weight="700" font-size="64" letter-spacing="-0.04em" fill="#F2EFE8">C</text>
+            <rect x="228" y="772" width="100" height="24" rx="4" fill="#C6F154"/>
+            <text x="278" y="789" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#0E0E0C" font-weight="600">SOLANA</text>
+          </g>
+        </svg>
       </div>
 
-      <div class="arch-row">
-        <div class="arch-label"><span class="num">03 / LAYER</span>NETWORK</div>
-        <div class="arch-nodes">
-          <div class="arch-node"><div class="t">Multi-hop Routing</div><div class="d">Pathfinding over the liquidity graph</div></div>
-          <div class="arch-node"><div class="t">Hub Network</div><div class="d">Relay nodes · Routing fees · Incentive aligned</div></div>
-          <div class="arch-node"><div class="t">Privacy Layer</div><div class="d">Compliant identity shielding</div></div>
-        </div>
-      </div>
-
-      <div class="arch-row">
-        <div class="arch-label"><span class="num">04 / LAYER</span>SETTLEMENT</div>
-        <div class="arch-chains">
-          <span class="chip">Ethereum</span>
-          <span class="chip">Solana</span>
-          <span class="chip">Tron</span>
-          <span class="chip">Base</span>
-          <span class="chip">Any-EVM</span>
-        </div>
+      <div class="hiw-log">
+        <div class="timed"><span class="t">[00.21]</span> channel.open <span class="sym">↻</span></div>
+        <div class="timed"><span class="t">[00.48]</span> route.found <span class="sym">↗</span> 2 hops</div>
+        <div class="timed"><span class="t">[00.83]</span> htlc.commit <span class="sym">✓</span></div>
+        <div class="timed"><span class="t">[00.92]</span> settle.final</div>
+        <div class="priv"><span class="sym">■</span> privacy:on</div>
+        <div class="priv"><span class="sym">■</span> yield:on</div>
       </div>
     </div>
   </div>
@@ -590,19 +756,19 @@
         <thead>
           <tr>
             <th>FEATURE</th>
+            <th class="us">AGENTHILL</th>
             <th>VISA / MC</th>
             <th>SOLANA</th>
             <th>LIGHTNING</th>
-            <th class="us">AGENTHILL</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>Fees</td><td class="mute">2.9% + $0.30</td><td class="mute">Network-dep.</td><td>0.01–0.2%</td><td class="us">0.01–0.2%</td></tr>
-          <tr><td>Settlement</td><td class="mute">T+2 days</td><td class="mute">2–5 sec</td><td>&lt;1 sec</td><td class="us">&lt;1 sec</td></tr>
-          <tr><td>TPS ceiling</td><td class="mute">&lt;50K</td><td class="mute">&lt;1M</td><td>Unlimited</td><td class="us">Unlimited</td></tr>
-          <tr><td>Chain support</td><td class="mute">Off-chain</td><td class="mute">Single</td><td class="mute">Single</td><td class="us">Chain-agnostic</td></tr>
-          <tr><td>Native stablecoins</td><td>✓</td><td>✓</td><td class="neg">—</td><td class="us">✓</td></tr>
-          <tr><td>DeFi composability</td><td class="neg">—</td><td>✓</td><td class="neg">—</td><td class="us">✓</td></tr>
+          <tr><td>Fees</td><td class="us">0.01–0.2%</td><td class="mute">2.9% + $0.30</td><td class="mute">Network-dep.</td><td>0.01–0.2%</td></tr>
+          <tr><td>Settlement</td><td class="us">&lt;1 sec</td><td class="mute">T+2 days</td><td class="mute">2–5 sec</td><td>&lt;1 sec</td></tr>
+          <tr><td>TPS ceiling</td><td class="us">Unlimited</td><td class="mute">&lt;50K</td><td class="mute">&lt;1M</td><td>Unlimited</td></tr>
+          <tr><td>Chain support</td><td class="us">Chain-agnostic</td><td class="mute">Off-chain</td><td class="mute">Single</td><td class="mute">Single</td></tr>
+          <tr><td>Native stablecoins</td><td class="us">✓</td><td>✓</td><td>✓</td><td class="neg">—</td></tr>
+          <tr><td>DeFi composability</td><td class="us">✓</td><td class="neg">—</td><td>✓</td><td class="neg">—</td></tr>
         </tbody>
       </table>
     </div>
