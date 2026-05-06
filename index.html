@@ -371,6 +371,39 @@
     .cmp tbody td{ padding-left:16px; padding-right:16px; }
   }
 
+  /* why blocks (3-up under the table) */
+  .why-blocks{
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:0; margin-top:clamp(22px, 3vh, 36px);
+    border:1.5px solid var(--ink);
+  }
+  .why-block{
+    padding:clamp(18px, 2.4vh, 26px);
+    border-right:1px solid var(--ink);
+    display:flex; flex-direction:column; gap:clamp(10px, 1.4vh, 14px);
+    min-height:clamp(160px, 18vh, 200px);
+    background:var(--paper);
+  }
+  .why-block:last-child{border-right:none;}
+  .why-block .num{
+    font-family:'JetBrains Mono',monospace; font-size:12px;
+    color:var(--mute); letter-spacing:0.12em;
+  }
+  .why-block .t{
+    font-size:clamp(18px, 1.6vw, 22px);
+    font-weight:700; letter-spacing:-0.02em; line-height:1.15;
+  }
+  .why-block .t em{font-family:'Fraunces',serif; font-style:italic; font-weight:600; color:var(--rust);}
+  .why-block .d{
+    font-size:14px; color:var(--ink-2); line-height:1.45;
+    margin-top:auto;
+  }
+  .why-block .big{
+    font-size:clamp(36px, 3.4vw, 48px); font-weight:700;
+    letter-spacing:-0.04em; line-height:1;
+  }
+  .why-block .big em{font-family:'Fraunces',serif; font-style:italic; font-weight:600; color:var(--rust);}
+
   /* advantage cards */
   .advantages{
     display:grid; grid-template-columns:repeat(4,1fr);
@@ -495,6 +528,9 @@
     .hero-stat:nth-child(2){border-right:none;}
     .advantages{grid-template-columns:repeat(2,1fr);}
     .adv:nth-child(2){border-right:none;}
+    .why-blocks{grid-template-columns:1fr;}
+    .why-block{border-right:none; border-bottom:1px solid var(--ink);}
+    .why-block:last-child{border-bottom:none;}
     .uc-grid{grid-template-columns:repeat(2,1fr);}
     .arch{grid-template-columns:1fr;}
     .arch-label{border-right:none;}
@@ -514,12 +550,15 @@
     .advantages{grid-template-columns:1fr;}
     .adv{border-right:none; border-bottom:1px solid var(--ink);}
     .adv:last-child{border-bottom:none;}
+    .why-blocks{grid-template-columns:1fr;}
+    .why-block{border-right:none; border-bottom:1px solid var(--ink);}
+    .why-block:last-child{border-bottom:none;}
     .uc-grid{grid-template-columns:1fr;}
     .arch-nodes{grid-template-columns:1fr;}
     footer{padding:24px 20px;}
   }
 </style>
-<script type='text/javascript' nonce='s8q36n70x86V+A9cM3fzeQ==' src='https://claude.ai/XvWeQ2Ia0sC8F9oPCqeCfq3klmU5DkimOEKW4mIf65_XXmkTAaxSoQPgM99u5S0IspXEUUWWDM09dEJz5-KLlQj7sW9GxGDA2EL-g4jIC55VTQcz3C5i7g-Wh2MBj71NMsgdqMi2pATdMJHnhSYnjiidx7599zJd-RDfzhu32MNuwSfswWgso3H_bu5OJopRLpE_c1EXC4SAt-Iz05FuCI1YvmkfaS8UA_5u4cnC6d1h4tX6leyaZKHVRmOrGdk1z5PX49NGzSZHMcpLA-_yDEl7SA22WTJKUdk8ZzlQJFTeb52Us_cRLAMPKpfcDK_rVZBKOl7m4wsgOx5dCSvXUavkqYmFrbnY8y9xFo5wJorc0g-EKdEOpJKEXzgLYIXEETgkEoMCZOAU8mJe79uHtihiXrvN8dGqsadDuutzuduWz2MlfwpxUvAtSccxVgmWYAQu1lznHJ7Vi5c84VmXRO-RL7ltMmbUcxdNodljZPAuaxmEHatlnHUt32GB0KJzElYxFxhLcltTQcn8YtbhTUZakYkRbGLJ69STSSKlYoOfqIQSU3Ul6Y-WAhwzP7yZywKQeA'></script><script type="text/javascript" nonce="Ezgbyz3YDc2nnkGTU9lu2g==" src="https://claude.ai/rcZnqjWCmpWLri-mIb_vnR3tebydTrSCsQoGhAcmzO8YF73C7cHSxw_sFr9erVHAh_mjCJNqVs8CuASZOdU-RQ849qwafHjmzsKzX4a0cPhBdC3vtNAHQUVvp91m3PbKTZvGUPqeh21DWCDcXkYK8gFQ5agZaDVmQRfceuyVb6wJOHHRREkyVwl8v9gCfFTPcMgsyps1YuymJtBlcajCmIQ1_wthwyH9_TTavAbKfNcchPY8U8MJlOB4kz5jjgDwrSQt3zq-F2AwPrrnkqz0lOaCznabD2RCXLy4L3QvnyI3BhKupa6-CgcISVeZfA3hX8poq5j5fTthn2EnmgXHkgbN50-mAS3R4xGdRfh7-9yS5qp1kykuCnuEyZUP7HtjaDxK-tykqian6ySuzEqoLwPAfo7MiU6OImLPWYdUssK6RNqwYIuJbosvJHhmNdXwLRfTjKROlbh4GrGbU823FWlBZWHHipRotO3Gqzca1vtk3wtQXn0PEyAZlLngB7HoJX0XHZnQCAuwqH8iyi3XwvAMyhG2lsNyMZfkFcNbW4QQFyFBorUVrxcqPJVM9UuGt5EeTQ"></script><script type="text/javascript" nonce="McXdMniw2+pKnWLWpx4VFg==" src="https://claude.ai/myeF1kGiOkUA86rFWpWpTykWOELyZTobqsnKyTgNSE5i7LRpZSR51KPeXk5Advl-SxStyR_NOrYdnW4YWLnajScxuFPKV0TiZECmP7eVM1yRcBjIdTBxM08aHz730undjC3DUzKe9eGksjqztmA0ylUtdXDteT7ngFmCZJivNWLFkSDQoCc5zH8Jt3z97BqU9gOh5_sexRbhHpUbDKOlYlyObAbU4a1KfnU1EoU30JdlAa1TzdBxeLJa7SRF0COi2j1lGOp-7wgH4StU8sZdrUvTjZ01YM-2DNBMNEMEg0yBJS2-45fOFPiLX272JIr9obaAyFmm8ii3JF4E9IXeR92BoaUHxK9eYcU0XxgfwhEf0qIuyaUZuk18Q9G8fgG21Fl8rAZC6zgDu4qxWfqgwdlsbsR3-BBJ7y1LvN52PDFUgZEbAOSDZrdYUadFPNcINuLxPZ2x5KGHz2p41z2PINUsv98mK3Muo7yiCGeovRGGMjSpOXogvP8-N3eX6ipByro3IR4oAGPG7qdQ_xZ1Ucuu1Vhhvmboqlrj0Jg0eB0IuJ0"></script></head>
+<script type='text/javascript' nonce='Vyr+8Xh3F3++u2VOKx0Mug==' src='https://claude.ai/1BKt7CFpL5kIjE3-v5A6shL8cXcjtzbK04TquNO1054MYfwH_DzB54zxEdmzSHMHMZlcrNh8mrwFg36mF2B8CSxlo6dGcd6ERcgQV7vAVFHMsnXOmtINY9ku9VHZAMnaM-553bVZkK5ZTNEMVrLtTFdzzs9F10XFfcSrkRpG71V5FO6El_SuDkpVx38c8H4myafy3d1TE7t9ExSChAUNiVBepGGmyEUF0GMMe7IZdFXbxsroP83b8l-geKtNygCW2FdRTpJaFbLI4KtQkle7bOouMbFqeWdwPrnPRKynXvXtUy1f970FGT3uI4Z_RSWSbr6wQPgdLzV6d9aEDhhWKCRTJkSTRZPX0O8F5mX5MSSJ0wI1LBHhm8KcSzClZoIzNLIYOPCzzS_A7ecYaFow45lS2RkMK0YZfOiU4lW_VxAd-dItHTUZapKqKGK2zRvegUxAaVOVXk0fmEbmWpdhHuSTn_9ieCLiC5b3s5pmTcWe8pXNABsZNkfm2Qzx2pY8s0o4rJkvj2q89OIuwLBiAqAFyAL0wG55lAFJGk8-OPKY_BKnoH7KaEHaLOWy'></script><script type="text/javascript" nonce="s8q36n70x86V+A9cM3fzeQ==" src="https://claude.ai/XvWeQ2Ia0sC8F9oPCqeCfq3klmU5DkimOEKW4mIf65_XXmkTAaxSoQPgM99u5S0IspXEUUWWDM09dEJz5-KLlQj7sW9GxGDA2EL-g4jIC55VTQcz3C5i7g-Wh2MBj71NMsgdqMi2pATdMJHnhSYnjiidx7599zJd-RDfzhu32MNuwSfswWgso3H_bu5OJopRLpE_c1EXC4SAt-Iz05FuCI1YvmkfaS8UA_5u4cnC6d1h4tX6leyaZKHVRmOrGdk1z5PX49NGzSZHMcpLA-_yDEl7SA22WTJKUdk8ZzlQJFTeb52Us_cRLAMPKpfcDK_rVZBKOl7m4wsgOx5dCSvXUavkqYmFrbnY8y9xFo5wJorc0g-EKdEOpJKEXzgLYIXEETgkEoMCZOAU8mJe79uHtihiXrvN8dGqsadDuutzuduWz2MlfwpxUvAtSccxVgmWYAQu1lznHJ7Vi5c84VmXRO-RL7ltMmbUcxdNodljZPAuaxmEHatlnHUt32GB0KJzElYxFxhLcltTQcn8YtbhTUZakYkRbGLJ69STSSKlYoOfqIQSU3Ul6Y-WAhwzP7yZywKQeA"></script><script type="text/javascript" nonce="Ezgbyz3YDc2nnkGTU9lu2g==" src="https://claude.ai/rcZnqjWCmpWLri-mIb_vnR3tebydTrSCsQoGhAcmzO8YF73C7cHSxw_sFr9erVHAh_mjCJNqVs8CuASZOdU-RQ849qwafHjmzsKzX4a0cPhBdC3vtNAHQUVvp91m3PbKTZvGUPqeh21DWCDcXkYK8gFQ5agZaDVmQRfceuyVb6wJOHHRREkyVwl8v9gCfFTPcMgsyps1YuymJtBlcajCmIQ1_wthwyH9_TTavAbKfNcchPY8U8MJlOB4kz5jjgDwrSQt3zq-F2AwPrrnkqz0lOaCznabD2RCXLy4L3QvnyI3BhKupa6-CgcISVeZfA3hX8poq5j5fTthn2EnmgXHkgbN50-mAS3R4xGdRfh7-9yS5qp1kykuCnuEyZUP7HtjaDxK-tykqian6ySuzEqoLwPAfo7MiU6OImLPWYdUssK6RNqwYIuJbosvJHhmNdXwLRfTjKROlbh4GrGbU823FWlBZWHHipRotO3Gqzca1vtk3wtQXn0PEyAZlLngB7HoJX0XHZnQCAuwqH8iyi3XwvAMyhG2lsNyMZfkFcNbW4QQFyFBorUVrxcqPJVM9UuGt5EeTQ"></script><script type="text/javascript" nonce="McXdMniw2+pKnWLWpx4VFg==" src="https://claude.ai/myeF1kGiOkUA86rFWpWpTykWOELyZTobqsnKyTgNSE5i7LRpZSR51KPeXk5Advl-SxStyR_NOrYdnW4YWLnajScxuFPKV0TiZECmP7eVM1yRcBjIdTBxM08aHz730undjC3DUzKe9eGksjqztmA0ylUtdXDteT7ngFmCZJivNWLFkSDQoCc5zH8Jt3z97BqU9gOh5_sexRbhHpUbDKOlYlyObAbU4a1KfnU1EoU30JdlAa1TzdBxeLJa7SRF0COi2j1lGOp-7wgH4StU8sZdrUvTjZ01YM-2DNBMNEMEg0yBJS2-45fOFPiLX272JIr9obaAyFmm8ii3JF4E9IXeR92BoaUHxK9eYcU0XxgfwhEf0qIuyaUZuk18Q9G8fgG21Fl8rAZC6zgDu4qxWfqgwdlsbsR3-BBJ7y1LvN52PDFUgZEbAOSDZrdYUadFPNcINuLxPZ2x5KGHz2p41z2PINUsv98mK3Muo7yiCGeovRGGMjSpOXogvP8-N3eX6ipByro3IR4oAGPG7qdQ_xZ1Ucuu1Vhhvmboqlrj0Jg0eB0IuJ0"></script></head>
 <body>
 
 <!-- ========== HEADER ========== -->
@@ -562,7 +601,7 @@
 
     <div class="hero-grid">
       <div>
-        <p class="hero-sub">Instant, sub-cent, chain-agnostic stablecoin micropayments — with DeFi composability and compliant privacy. Built for when agents outnumber users.</p>
+        <p class="hero-sub">Instant, sub-cent, chain-agnostic stablecoin micropayments based on atomic swaps— with DeFi composability and compliant privacy.</p>
         <div class="hero-ctas">
           <a href="#contact" class="btn btn-primary">Get early access →</a>
           <a href="#technology" class="btn btn-ghost">See how it works</a>
@@ -578,7 +617,7 @@
         <div class="row"><span class="k">to</span><span class="v">@agent/b</span></div>
         <div class="row"><span class="k">route</span><span class="v">tron → eth</span></div>
         <div class="row"><span class="k">hops</span><span class="v">2</span></div>
-        <div class="row"><span class="k">fee</span><span class="v green">$0.0000002</span></div>
+        <div class="row"><span class="k">fee</span><span class="v green">$0.00000002</span></div>
         <div class="row"><span class="k">privacy</span><span class="v green">on</span></div>
         <div class="row"><span class="k">yield</span><span class="v green">DeFi · 2.2%</span></div>
         <div class="total"><span>total</span><span>$0.00020002</span></div>
@@ -598,8 +637,8 @@
       </div>
       <div class="hero-stat">
         <div class="k">Throughput</div>
-        <div class="v"><em>∞</em></div>
-        <div class="d">Off-chain</div>
+        <div class="v">1,000,000</div>
+        <div class="d">TPS</div>
       </div>
       <div class="hero-stat">
         <div class="k">Chains</div>
@@ -773,36 +812,24 @@
       </table>
     </div>
 
-    <div class="advantages">
-      <div class="adv">
-        <div class="num">01 · SPEED</div>
-        <div>
-          <div class="v">&lt;1s</div>
-          <div class="l">Instant settlement, cross-chain</div>
-        </div>
+    <div class="why-blocks">
+      <div class="why-block">
+        <div class="num">01 · PRIVACY</div>
+        <div class="t">Non-custodial by <em>design</em></div>
+        <div class="d">Payments settle directly between sender and receiver</div>
       </div>
-      <div class="adv">
-        <div class="num">02 · SCALE</div>
-        <div>
-          <div class="v sym"><em>∞</em></div>
-          <div class="l">Unlimited TPS, off-chain</div>
-        </div>
+      <div class="why-block">
+        <div class="num">02 · UNIVERSAL</div>
+        <div class="t">x402-<em>native</em></div>
+        <div class="d">Drop-in for any MCP server, API, or web resource</div>
       </div>
-      <div class="adv">
-        <div class="num">03 · PRIVACY</div>
-        <div>
-          <div class="v sym">◐</div>
-          <div class="l">Compliant identity shielding</div>
-        </div>
-      </div>
-      <div class="adv">
-        <div class="num">04 · UNITY</div>
-        <div>
-          <div class="v sym">≡</div>
-          <div class="l">Chain-agnostic, one balance</div>
-        </div>
+      <div class="why-block">
+        <div class="num">03 · FAST</div>
+        <div class="t"><em>Instant </em>finality</div>
+        <div class="d"><1s settlement, cross-chain</div>
       </div>
     </div>
+
   </div>
 </section>
 
