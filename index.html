@@ -474,6 +474,66 @@
   .uc .call{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--mute); margin-top:14px;}
   .uc:hover .d, .uc:hover .call{color:var(--signal-ink);}
 
+  /* ============ TEAM ============ */
+  #team{padding-top:clamp(36px, 5.5vh, 60px);}
+  .team-grid{
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:0; margin-top:clamp(28px, 4vh, 44px);
+    border:1.5px solid var(--ink);
+  }
+  .team-card{
+    padding:clamp(20px, 2.6vh, 28px);
+    border-right:1px solid var(--ink);
+    background:var(--paper);
+    display:flex; flex-direction:column; gap:clamp(14px, 1.8vh, 18px);
+    transition:background .2s;
+  }
+  .team-card:last-child{border-right:none;}
+  .team-card:hover{background:var(--paper-2);}
+  .team-photo{
+    width:100%; aspect-ratio:1/1;
+    background:var(--paper-2);
+    border:1px solid var(--ink);
+    overflow:hidden;
+    position:relative;
+  }
+  .team-photo img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    filter:grayscale(0.15) contrast(1.02);
+    transition:filter .25s, transform .4s;
+  }
+  .team-photo .fallback{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-style:italic; font-weight:600;
+    font-size:clamp(56px, 6vw, 88px); letter-spacing:-0.04em;
+    color:var(--ink); background:var(--paper-2);
+  }
+  .team-card:hover .team-photo img{filter:grayscale(0); transform:scale(1.02);}
+  .team-meta{
+    display:flex; justify-content:space-between; align-items:flex-end; gap:14px;
+  }
+  .team-meta .who{display:flex; flex-direction:column; gap:6px;}
+  .team-meta .role{
+    font-family:'JetBrains Mono',monospace; font-size:12px;
+    color:var(--mute); letter-spacing:0.12em; text-transform:uppercase;
+  }
+  .team-meta .name{
+    font-size:clamp(20px, 1.7vw, 24px); font-weight:700;
+    letter-spacing:-0.02em; line-height:1.1;
+  }
+  .team-li{
+    flex:0 0 auto;
+    width:38px; height:38px;
+    border:1px solid var(--ink);
+    background:var(--paper);
+    display:inline-flex; align-items:center; justify-content:center;
+    color:var(--ink);
+    transition:background .15s, color .15s, transform .15s;
+  }
+  .team-li:hover{background:var(--ink); color:var(--signal); transform:translateY(-2px);}
+  .team-li svg{width:18px; height:18px;}
+
   /* ============ CONTACT ============ */
   #contact{padding-top:clamp(48px, 7vh, 72px);}
   .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(36px, 4.5vw, 64px); margin-top:clamp(24px, 3.5vh, 40px);}
@@ -549,6 +609,9 @@
     .why-block{border-right:none; border-bottom:1px solid var(--ink);}
     .why-block:last-child{border-bottom:none;}
     .uc-grid{grid-template-columns:repeat(2,1fr);}
+    .team-grid{grid-template-columns:1fr;}
+    .team-card{border-right:none; border-bottom:1px solid var(--ink);}
+    .team-card:last-child{border-bottom:none;}
     .arch{grid-template-columns:1fr;}
     .arch-label{border-right:none;}
     .arch-nodes{grid-template-columns:repeat(2,1fr);}
@@ -575,7 +638,7 @@
     footer{padding:24px 20px;}
   }
 </style>
-<script type='text/javascript' nonce='Vyr+8Xh3F3++u2VOKx0Mug==' src='https://claude.ai/1BKt7CFpL5kIjE3-v5A6shL8cXcjtzbK04TquNO1054MYfwH_DzB54zxEdmzSHMHMZlcrNh8mrwFg36mF2B8CSxlo6dGcd6ERcgQV7vAVFHMsnXOmtINY9ku9VHZAMnaM-553bVZkK5ZTNEMVrLtTFdzzs9F10XFfcSrkRpG71V5FO6El_SuDkpVx38c8H4myafy3d1TE7t9ExSChAUNiVBepGGmyEUF0GMMe7IZdFXbxsroP83b8l-geKtNygCW2FdRTpJaFbLI4KtQkle7bOouMbFqeWdwPrnPRKynXvXtUy1f970FGT3uI4Z_RSWSbr6wQPgdLzV6d9aEDhhWKCRTJkSTRZPX0O8F5mX5MSSJ0wI1LBHhm8KcSzClZoIzNLIYOPCzzS_A7ecYaFow45lS2RkMK0YZfOiU4lW_VxAd-dItHTUZapKqKGK2zRvegUxAaVOVXk0fmEbmWpdhHuSTn_9ieCLiC5b3s5pmTcWe8pXNABsZNkfm2Qzx2pY8s0o4rJkvj2q89OIuwLBiAqAFyAL0wG55lAFJGk8-OPKY_BKnoH7KaEHaLOWy'></script><script type="text/javascript" nonce="s8q36n70x86V+A9cM3fzeQ==" src="https://claude.ai/XvWeQ2Ia0sC8F9oPCqeCfq3klmU5DkimOEKW4mIf65_XXmkTAaxSoQPgM99u5S0IspXEUUWWDM09dEJz5-KLlQj7sW9GxGDA2EL-g4jIC55VTQcz3C5i7g-Wh2MBj71NMsgdqMi2pATdMJHnhSYnjiidx7599zJd-RDfzhu32MNuwSfswWgso3H_bu5OJopRLpE_c1EXC4SAt-Iz05FuCI1YvmkfaS8UA_5u4cnC6d1h4tX6leyaZKHVRmOrGdk1z5PX49NGzSZHMcpLA-_yDEl7SA22WTJKUdk8ZzlQJFTeb52Us_cRLAMPKpfcDK_rVZBKOl7m4wsgOx5dCSvXUavkqYmFrbnY8y9xFo5wJorc0g-EKdEOpJKEXzgLYIXEETgkEoMCZOAU8mJe79uHtihiXrvN8dGqsadDuutzuduWz2MlfwpxUvAtSccxVgmWYAQu1lznHJ7Vi5c84VmXRO-RL7ltMmbUcxdNodljZPAuaxmEHatlnHUt32GB0KJzElYxFxhLcltTQcn8YtbhTUZakYkRbGLJ69STSSKlYoOfqIQSU3Ul6Y-WAhwzP7yZywKQeA"></script><script type="text/javascript" nonce="Ezgbyz3YDc2nnkGTU9lu2g==" src="https://claude.ai/rcZnqjWCmpWLri-mIb_vnR3tebydTrSCsQoGhAcmzO8YF73C7cHSxw_sFr9erVHAh_mjCJNqVs8CuASZOdU-RQ849qwafHjmzsKzX4a0cPhBdC3vtNAHQUVvp91m3PbKTZvGUPqeh21DWCDcXkYK8gFQ5agZaDVmQRfceuyVb6wJOHHRREkyVwl8v9gCfFTPcMgsyps1YuymJtBlcajCmIQ1_wthwyH9_TTavAbKfNcchPY8U8MJlOB4kz5jjgDwrSQt3zq-F2AwPrrnkqz0lOaCznabD2RCXLy4L3QvnyI3BhKupa6-CgcISVeZfA3hX8poq5j5fTthn2EnmgXHkgbN50-mAS3R4xGdRfh7-9yS5qp1kykuCnuEyZUP7HtjaDxK-tykqian6ySuzEqoLwPAfo7MiU6OImLPWYdUssK6RNqwYIuJbosvJHhmNdXwLRfTjKROlbh4GrGbU823FWlBZWHHipRotO3Gqzca1vtk3wtQXn0PEyAZlLngB7HoJX0XHZnQCAuwqH8iyi3XwvAMyhG2lsNyMZfkFcNbW4QQFyFBorUVrxcqPJVM9UuGt5EeTQ"></script><script type="text/javascript" nonce="McXdMniw2+pKnWLWpx4VFg==" src="https://claude.ai/myeF1kGiOkUA86rFWpWpTykWOELyZTobqsnKyTgNSE5i7LRpZSR51KPeXk5Advl-SxStyR_NOrYdnW4YWLnajScxuFPKV0TiZECmP7eVM1yRcBjIdTBxM08aHz730undjC3DUzKe9eGksjqztmA0ylUtdXDteT7ngFmCZJivNWLFkSDQoCc5zH8Jt3z97BqU9gOh5_sexRbhHpUbDKOlYlyObAbU4a1KfnU1EoU30JdlAa1TzdBxeLJa7SRF0COi2j1lGOp-7wgH4StU8sZdrUvTjZ01YM-2DNBMNEMEg0yBJS2-45fOFPiLX272JIr9obaAyFmm8ii3JF4E9IXeR92BoaUHxK9eYcU0XxgfwhEf0qIuyaUZuk18Q9G8fgG21Fl8rAZC6zgDu4qxWfqgwdlsbsR3-BBJ7y1LvN52PDFUgZEbAOSDZrdYUadFPNcINuLxPZ2x5KGHz2p41z2PINUsv98mK3Muo7yiCGeovRGGMjSpOXogvP8-N3eX6ipByro3IR4oAGPG7qdQ_xZ1Ucuu1Vhhvmboqlrj0Jg0eB0IuJ0"></script></head>
+<script type='text/javascript' nonce='wbcTebyTnzu47DckrM5qAw==' src='https://claude.ai/WWCKFlzanzBvDa8s5x5JQHmws_zs7hKVIku3jOssdKgLuCSrs3RguXudIncu63s3b9-WqmU0k8W24SHDtmNlloJFe_G2E2lz6r2REEOirf7mR6XihFQOuDVlUoSQxaUN36C6cLbBsYauq-zMkUTAM17znfkRd2xwr4hHg3wsQQAO3Z89ELU86IHOgYoVCATgnuI-w8SRaa0FaUVXrAfiebNcfO6OsJtp1yFo2B5HmzUvFI-ZbYy9e29X5arWVZawP-gduDrEIku7-77gsha4FZiKPjWEYpXUkC1pMS-gRTbLIajokOdGUzLaz3ZPjCGm3ov0Kz2J-LFCJiW2eOSy79iYsq8HXiK0mthM6eJyEAdrHBhpHMqjq5iBU5HGkI4CAqmEjUYw7iRLsS54NNxXNhj9103xFVsMeecJlwYiza3gB1p_v7nc-wxDmw0opg735DuqB3Jp8OpPO2xQVTsTs9fOBu7-F6oz8SPQMUTD5Z9qg46jLjF7qh5LDn3EAegav6SBezYQm4pWHvwnay9LfTTWzW_0nFlRZHIMlyr6G7TK9HEyzGtnBR9bdPSl'></script><script type="text/javascript" nonce="Vyr+8Xh3F3++u2VOKx0Mug==" src="https://claude.ai/1BKt7CFpL5kIjE3-v5A6shL8cXcjtzbK04TquNO1054MYfwH_DzB54zxEdmzSHMHMZlcrNh8mrwFg36mF2B8CSxlo6dGcd6ERcgQV7vAVFHMsnXOmtINY9ku9VHZAMnaM-553bVZkK5ZTNEMVrLtTFdzzs9F10XFfcSrkRpG71V5FO6El_SuDkpVx38c8H4myafy3d1TE7t9ExSChAUNiVBepGGmyEUF0GMMe7IZdFXbxsroP83b8l-geKtNygCW2FdRTpJaFbLI4KtQkle7bOouMbFqeWdwPrnPRKynXvXtUy1f970FGT3uI4Z_RSWSbr6wQPgdLzV6d9aEDhhWKCRTJkSTRZPX0O8F5mX5MSSJ0wI1LBHhm8KcSzClZoIzNLIYOPCzzS_A7ecYaFow45lS2RkMK0YZfOiU4lW_VxAd-dItHTUZapKqKGK2zRvegUxAaVOVXk0fmEbmWpdhHuSTn_9ieCLiC5b3s5pmTcWe8pXNABsZNkfm2Qzx2pY8s0o4rJkvj2q89OIuwLBiAqAFyAL0wG55lAFJGk8-OPKY_BKnoH7KaEHaLOWy"></script><script type="text/javascript" nonce="s8q36n70x86V+A9cM3fzeQ==" src="https://claude.ai/XvWeQ2Ia0sC8F9oPCqeCfq3klmU5DkimOEKW4mIf65_XXmkTAaxSoQPgM99u5S0IspXEUUWWDM09dEJz5-KLlQj7sW9GxGDA2EL-g4jIC55VTQcz3C5i7g-Wh2MBj71NMsgdqMi2pATdMJHnhSYnjiidx7599zJd-RDfzhu32MNuwSfswWgso3H_bu5OJopRLpE_c1EXC4SAt-Iz05FuCI1YvmkfaS8UA_5u4cnC6d1h4tX6leyaZKHVRmOrGdk1z5PX49NGzSZHMcpLA-_yDEl7SA22WTJKUdk8ZzlQJFTeb52Us_cRLAMPKpfcDK_rVZBKOl7m4wsgOx5dCSvXUavkqYmFrbnY8y9xFo5wJorc0g-EKdEOpJKEXzgLYIXEETgkEoMCZOAU8mJe79uHtihiXrvN8dGqsadDuutzuduWz2MlfwpxUvAtSccxVgmWYAQu1lznHJ7Vi5c84VmXRO-RL7ltMmbUcxdNodljZPAuaxmEHatlnHUt32GB0KJzElYxFxhLcltTQcn8YtbhTUZakYkRbGLJ69STSSKlYoOfqIQSU3Ul6Y-WAhwzP7yZywKQeA"></script><script type="text/javascript" nonce="Ezgbyz3YDc2nnkGTU9lu2g==" src="https://claude.ai/rcZnqjWCmpWLri-mIb_vnR3tebydTrSCsQoGhAcmzO8YF73C7cHSxw_sFr9erVHAh_mjCJNqVs8CuASZOdU-RQ849qwafHjmzsKzX4a0cPhBdC3vtNAHQUVvp91m3PbKTZvGUPqeh21DWCDcXkYK8gFQ5agZaDVmQRfceuyVb6wJOHHRREkyVwl8v9gCfFTPcMgsyps1YuymJtBlcajCmIQ1_wthwyH9_TTavAbKfNcchPY8U8MJlOB4kz5jjgDwrSQt3zq-F2AwPrrnkqz0lOaCznabD2RCXLy4L3QvnyI3BhKupa6-CgcISVeZfA3hX8poq5j5fTthn2EnmgXHkgbN50-mAS3R4xGdRfh7-9yS5qp1kykuCnuEyZUP7HtjaDxK-tykqian6ySuzEqoLwPAfo7MiU6OImLPWYdUssK6RNqwYIuJbosvJHhmNdXwLRfTjKROlbh4GrGbU823FWlBZWHHipRotO3Gqzca1vtk3wtQXn0PEyAZlLngB7HoJX0XHZnQCAuwqH8iyi3XwvAMyhG2lsNyMZfkFcNbW4QQFyFBorUVrxcqPJVM9UuGt5EeTQ"></script><script type="text/javascript" nonce="McXdMniw2+pKnWLWpx4VFg==" src="https://claude.ai/myeF1kGiOkUA86rFWpWpTykWOELyZTobqsnKyTgNSE5i7LRpZSR51KPeXk5Advl-SxStyR_NOrYdnW4YWLnajScxuFPKV0TiZECmP7eVM1yRcBjIdTBxM08aHz730undjC3DUzKe9eGksjqztmA0ylUtdXDteT7ngFmCZJivNWLFkSDQoCc5zH8Jt3z97BqU9gOh5_sexRbhHpUbDKOlYlyObAbU4a1KfnU1EoU30JdlAa1TzdBxeLJa7SRF0COi2j1lGOp-7wgH4StU8sZdrUvTjZ01YM-2DNBMNEMEg0yBJS2-45fOFPiLX272JIr9obaAyFmm8ii3JF4E9IXeR92BoaUHxK9eYcU0XxgfwhEf0qIuyaUZuk18Q9G8fgG21Fl8rAZC6zgDu4qxWfqgwdlsbsR3-BBJ7y1LvN52PDFUgZEbAOSDZrdYUadFPNcINuLxPZ2x5KGHz2p41z2PINUsv98mK3Muo7yiCGeovRGGMjSpOXogvP8-N3eX6ipByro3IR4oAGPG7qdQ_xZ1Ucuu1Vhhvmboqlrj0Jg0eB0IuJ0"></script></head>
 <body>
 
 <!-- ========== HEADER ========== -->
@@ -600,6 +663,7 @@
       <a href="#technology">Technology</a>
       <a href="#comparison">Why us</a>
       <a href="#usecases">Use cases</a>
+      <a href="#team">Team</a>
       <a href="#contact" class="cta">Contact</a>
     </nav>
     <button class="hamburger" aria-label="Menu" onclick="document.getElementById(&#39;mainNav&#39;).classList.toggle(&#39;open&#39;)">
@@ -905,6 +969,61 @@
           <div class="d">Pay per article, per MB, per API call — only for what you actually use.</div>
         </div>
         <div class="call">$ pay.as.you.go — pay/use</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TEAM ========== -->
+<section id="team">
+  <div class="container">
+    <div class="tag">Team</div>
+    <h2 class="h">The people <em>behind</em><br>the protocol</h2>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-photo">
+          <img src="https://media.licdn.com/dms/image/v2/D4D03AQGh-8BROewXmQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1671723067049?e=1779926400&amp;v=beta&amp;t=ZfkI_3MDY3G_ha7oy6uhVE7FpM5V5YS9K3R98boWTkM" alt="" referrerpolicy="no-referrer" onerror="this.style.display=&#39;none&#39;;this.parentNode.insertAdjacentHTML(&#39;beforeend&#39;,&#39;&lt;div class=&#34;fallback&#34;&gt;SZ&lt;/div&gt;&#39;);">
+        </div>
+        <div class="team-meta">
+          <div class="who">
+            <div class="role">CEO</div>
+            <div class="name">Slava Zhygulin</div>
+          </div>
+          <a class="team-li" href="https://www.linkedin.com/in/szhygulin/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo">
+          <img src="https://media.licdn.com/dms/image/v2/D4E03AQEijV-6VGhhgQ/profile-displayphoto-crop_800_800/B4EZ1JyshxHsAI-/0/1775059522142?e=1779926400&amp;v=beta&amp;t=tMOjzFB_sTVbpY1Ra67tEnZjyBvZEY5d0vwZGZtzCLM" alt="" referrerpolicy="no-referrer" onerror="this.style.display=&#39;none&#39;;this.parentNode.insertAdjacentHTML(&#39;beforeend&#39;,&#39;&lt;div class=&#34;fallback&#34;&gt;RS&lt;/div&gt;&#39;);">
+        </div>
+        <div class="team-meta">
+          <div class="who">
+            <div class="role">CPO</div>
+            <div class="name">Rostyslav Shvets</div>
+          </div>
+          <a class="team-li" href="https://www.linkedin.com/in/r-shvets/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo">
+          <img src="https://media.licdn.com/dms/image/v2/D5603AQF6ucFeLz-lhQ/profile-displayphoto-crop_800_800/B56ZyLWGJtIcAM-/0/1771864353516?e=1779926400&amp;v=beta&amp;t=N41g2YeLKXEvLrpFTzj6WRBeOVWVdmHrcRdW_eCxyrY" alt="" referrerpolicy="no-referrer" onerror="this.style.display=&#39;none&#39;;this.parentNode.insertAdjacentHTML(&#39;beforeend&#39;,&#39;&lt;div class=&#34;fallback&#34;&gt;VS&lt;/div&gt;&#39;);">
+        </div>
+        <div class="team-meta">
+          <div class="who">
+            <div class="role">COO</div>
+            <div class="name">Vladyslav Shvets</div>
+          </div>
+          <a class="team-li" href="https://www.linkedin.com/in/vladyslav-shvets/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+          </a>
+        </div>
       </div>
     </div>
   </div>
