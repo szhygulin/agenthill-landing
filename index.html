@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AgentHill — Payment Layer for the Agentic Economy</title>
-<meta name="description" content="Instant, sub-cent, chain-agnostic stablecoin micropayments based on atomic swaps — with DeFi composability and compliant privacy.">
+<title>AgentHill — Capital-efficient channels for agent payments</title>
+<meta name="description" content="Non-custodial cross-chain payment channels for agents and MCP servers. Atomic stablecoin settlement, sub-cent fees, DeFi-yielding hub liquidity, compliant privacy.">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AgentHill">
-<meta property="og:title" content="AgentHill — Payment Layer for the Agentic Economy">
-<meta property="og:description" content="Instant, sub-cent, chain-agnostic stablecoin micropayments based on atomic swaps — with DeFi composability and compliant privacy.">
+<meta property="og:title" content="AgentHill — Capital-efficient channels for agent payments">
+<meta property="og:description" content="Non-custodial cross-chain payment channels for agents and MCP servers. Atomic stablecoin settlement, sub-cent fees, DeFi-yielding hub liquidity, compliant privacy.">
 <meta property="og:url" content="https://agenthill.ai/">
 <meta property="og:image" content="https://agenthill.ai/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="AgentHill — payment layer for the agentic economy">
+<meta property="og:image:alt" content="AgentHill — capital-efficient channels for agent payments">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AgentHill — Payment Layer for the Agentic Economy">
-<meta name="twitter:description" content="Instant, sub-cent, chain-agnostic stablecoin micropayments based on atomic swaps — with DeFi composability and compliant privacy.">
+<meta name="twitter:title" content="AgentHill — Capital-efficient channels for agent payments">
+<meta name="twitter:description" content="Non-custodial cross-chain payment channels for agents and MCP servers. Atomic stablecoin settlement, sub-cent fees, DeFi-yielding hub liquidity, compliant privacy.">
 <meta name="twitter:image" content="https://agenthill.ai/assets/og.png">
 
 <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
@@ -441,6 +441,41 @@
   .adv .v.sym{text-indent:-0.18em;}
   .adv .l{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--ink-2); margin-top:8px;}
 
+  /* ============ MOAT ============ */
+  #moat{padding-top:clamp(36px, 5.5vh, 60px);}
+  .moat-grid{
+    display:grid; grid-template-columns:repeat(2,1fr);
+    gap:0; margin-top:clamp(24px, 3.5vh, 40px);
+    border:1.5px solid var(--ink);
+  }
+  .moat-card{
+    padding:clamp(22px, 3vh, 32px);
+    border-right:1px solid var(--ink);
+    display:flex; flex-direction:column; gap:clamp(10px, 1.4vh, 16px);
+    background:var(--paper);
+  }
+  .moat-card:last-child{border-right:none;}
+  .moat-card.is-us{background:var(--ink); color:var(--paper); border-right-color:var(--ink);}
+  .moat-card .label{
+    font-family:'JetBrains Mono',monospace; font-size:12px;
+    letter-spacing:0.12em; color:var(--mute);
+  }
+  .moat-card.is-us .label{color:var(--signal);}
+  .moat-card .head{
+    font-size:clamp(20px, 1.8vw, 26px); font-weight:700;
+    letter-spacing:-0.02em; line-height:1.15;
+  }
+  .moat-card.is-us .head em{font-family:'Fraunces',serif; font-style:italic; font-weight:600; color:var(--signal);}
+  .moat-card .body{font-size:14.5px; line-height:1.5; color:var(--ink-2);}
+  .moat-card.is-us .body{color:rgba(242,239,232,0.78);}
+  .moat-card .result{
+    font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.5;
+    margin-top:auto; padding-top:clamp(10px, 1.4vh, 14px);
+    border-top:1px dashed rgba(14,14,12,0.2);
+    color:var(--ink-2);
+  }
+  .moat-card.is-us .result{color:var(--signal); border-top-color:rgba(198,241,84,0.25);}
+
   /* ============ USE CASES ============ */
   #usecases{background:var(--paper-2); padding:clamp(48px, 7vh, 72px) 40px;}
   .uc-grid{
@@ -533,6 +568,11 @@
   }
   .team-li:hover{background:var(--ink); color:var(--signal); transform:translateY(-2px);}
   .team-li svg{width:18px; height:18px;}
+  .team-bio{
+    font-size:14px; color:var(--ink-2); line-height:1.5;
+    margin-top:clamp(6px, 0.8vh, 10px);
+  }
+  .team-bio em{font-family:'Fraunces',serif; font-style:italic; font-weight:600; color:var(--ink);}
 
   /* ============ CONTACT ============ */
   #contact{padding-top:clamp(48px, 7vh, 72px);}
@@ -608,6 +648,9 @@
     .why-blocks{grid-template-columns:1fr;}
     .why-block{border-right:none; border-bottom:1px solid var(--ink);}
     .why-block:last-child{border-bottom:none;}
+    .moat-grid{grid-template-columns:1fr;}
+    .moat-card{border-right:none; border-bottom:1px solid var(--ink);}
+    .moat-card:last-child{border-bottom:none;}
     .uc-grid{grid-template-columns:repeat(2,1fr);}
     .team-grid{grid-template-columns:1fr;}
     .team-card{border-right:none; border-bottom:1px solid var(--ink);}
@@ -660,6 +703,7 @@
       <span class="wd">agent<em>hill</em></span>
     </a>
     <nav id="mainNav">
+      <a href="#whynow">Why now</a>
       <a href="#technology">Technology</a>
       <a href="#comparison">Why us</a>
       <a href="#usecases">Use cases</a>
@@ -677,12 +721,12 @@
 <!-- ========== HERO ========== -->
 <section id="hero">
   <div class="container">
-    <div class="tag">Payment protocol</div>
-    <h1 class="display">Payment layer<br>for the <em>agentic</em><br>economy</h1>
+    <div class="tag">Payment channels for agents</div>
+    <h1 class="display">Capital-efficient<br>channels for<br><em>agent</em> payments</h1>
 
     <div class="hero-grid">
       <div>
-        <p class="hero-sub">Instant, sub-cent, chain-agnostic stablecoin micropayments based on atomic swaps— with DeFi composability and compliant privacy.</p>
+        <p class="hero-sub">Non-custodial cross-chain payment channels between agents, MCP servers, and hubs. Atomic stablecoin settlement, sub-cent fees, DeFi-yielding hub liquidity — with compliant privacy.</p>
         <div class="hero-ctas">
           <a href="#contact" class="btn btn-primary">Get early access →</a>
           <a href="#technology" class="btn btn-ghost">See how it works</a>
@@ -730,11 +774,44 @@
   </div>
 </section>
 
+<!-- ========== WHY NOW ========== -->
+<section id="whynow">
+  <div class="container">
+    <div class="tag">Why now</div>
+    <h2 class="h">Agent payments became <em>real</em><br>in 2025–26</h2>
+    <p class="lede">The category went from speculative to live infrastructure inside twelve months. The numbers behind it.</p>
+
+    <div class="hero-stats" style="margin-top:clamp(22px, 3vh, 36px);">
+      <div class="hero-stat">
+        <div class="k">x402 volume</div>
+        <div class="v">$600M<em>+</em></div>
+        <div class="d">165M+ txns · 69k agents (Coinbase, Apr 2026)</div>
+      </div>
+      <div class="hero-stat">
+        <div class="k">MCP servers</div>
+        <div class="v">11,000<em>+</em></div>
+        <div class="d">Less than 5% monetized today</div>
+      </div>
+      <div class="hero-stat">
+        <div class="k">x402 Bazaar</div>
+        <div class="v">10,000<em>+</em></div>
+        <div class="d">endpoints · AWS AgentCore, May 2026</div>
+      </div>
+      <div class="hero-stat">
+        <div class="k">x402 Foundation</div>
+        <div class="v">14<em>+</em></div>
+        <div class="d">Visa · Google · AWS · Cloudflare · Stripe · Mastercard</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ========== TECHNOLOGY ========== -->
 <section id="technology">
   <div class="container">
     <div class="tag">Technology</div>
-    <h2 class="h">How It <em>Works</em></h2>
+    <h2 class="h">Hub-and-spoke, <em>channel</em>-routed, atomic</h2>
+    <p class="lede">One channel per endpoint. Sub-cent payments aggregate off-chain. Settlement is atomic across chains via HTLC. Hubs route, never custody.</p>
 
     <div class="hiw">
       <div class="hiw-scene">
@@ -868,27 +945,27 @@
 <section id="comparison">
   <div class="container">
     <div class="tag">Why AgentHill</div>
-    <h2 class="h">Built for the <em>machine</em><br>economy</h2>
-    <p class="lede">Purpose-built payment infrastructure where legacy systems fall short. Benchmarked against the obvious alternatives.</p>
+    <h2 class="h">A different <em>layer</em><br>than the obvious competitors</h2>
+    <p class="lede">We don't replace x402 or stablecoin issuers — we add the channel layer in between. Single-shot belongs to facilitators. High-frequency and cross-chain belongs here.</p>
 
     <div class="cmp-wrap">
       <table class="cmp">
         <thead>
           <tr>
-            <th>FEATURE</th>
+            <th>CAPABILITY</th>
             <th class="us">AGENTHILL</th>
-            <th>VISA / MC</th>
-            <th>SOLANA</th>
+            <th>X402 FACILITATORS</th>
+            <th>CROSS-CHAIN BRIDGES</th>
             <th>LIGHTNING</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>Fees</td><td class="us">0.01–0.2%</td><td class="mute">2.9% + $0.30</td><td class="mute">Network-dep.</td><td>0.01–0.2%</td></tr>
-          <tr><td>Settlement</td><td class="us">&lt;1 sec</td><td class="mute">T+2 days</td><td class="mute">2–5 sec</td><td>&lt;1 sec</td></tr>
-          <tr><td>TPS ceiling</td><td class="us">Unlimited</td><td class="mute">&lt;50K</td><td class="mute">&lt;1M</td><td>Unlimited</td></tr>
-          <tr><td>Chain support</td><td class="us">Chain-agnostic</td><td class="mute">Off-chain</td><td class="mute">Single</td><td class="mute">Single</td></tr>
-          <tr><td>Native stablecoins</td><td class="us">✓</td><td>✓</td><td>✓</td><td class="neg">—</td></tr>
-          <tr><td>DeFi composability</td><td class="us">✓</td><td class="neg">—</td><td>✓</td><td class="neg">—</td></tr>
+          <tr><td>Cross-chain settlement</td><td class="us">Channels + HTLC</td><td class="mute">Single-chain per-tx</td><td>Message-passing</td><td class="mute">BTC only</td></tr>
+          <tr><td>Off-chain aggregation</td><td class="us">✓</td><td class="neg">—</td><td class="neg">—</td><td>✓</td></tr>
+          <tr><td>Sub-cent fees</td><td class="us">1–15 bps</td><td class="mute">Per-tx gas + take</td><td class="mute">Bridge fee</td><td>1–15 bps</td></tr>
+          <tr><td>Multi-stablecoin</td><td class="us">USDC · USDT · PYUSD</td><td class="mute">USDC-locked</td><td>Limited</td><td class="neg">—</td></tr>
+          <tr><td>Yield-bearing collateral</td><td class="us">3–5% APY via DeFi</td><td class="neg">—</td><td class="neg">—</td><td class="neg">No native BTC yield</td></tr>
+          <tr><td>Non-custodial routing</td><td class="us">✓</td><td class="mute">Mixed</td><td>✓</td><td>✓</td></tr>
         </tbody>
       </table>
     </div>
@@ -897,20 +974,44 @@
       <div class="why-block">
         <div class="num">01 · PRIVATE</div>
         <div class="t">Non-custodial by <em>design</em></div>
-        <div class="d">Payments settle directly between sender and receiver</div>
+        <div class="d">Atomic HTLC settlement between sender and receiver. Hubs route, never custody. Compliant privacy on the wire.</div>
       </div>
       <div class="why-block">
-        <div class="num">02 · UNIVERSAL</div>
-        <div class="t">x402-<em>native</em></div>
-        <div class="d">Drop-in for any MCP server, API, or web resource</div>
+        <div class="num">02 · YIELD-BEARING</div>
+        <div class="t">Capital that <em>earns</em></div>
+        <div class="d">Idle channel liquidity deposited via share-based proxy contracts. 3–5% APY in Aave/Compound while routing.</div>
       </div>
       <div class="why-block">
-        <div class="num">03 · FAST</div>
-        <div class="t"><em>Instant </em>finality</div>
-        <div class="d"><1s settlement, cross-chain</div>
+        <div class="num">03 · CHAIN-AGNOSTIC</div>
+        <div class="t">One channel, <em>any</em> asset</div>
+        <div class="d">USDC, USDT, PYUSD across Base, Solana, Tron, Ethereum. x402-native — drop in for any MCP server.</div>
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- ========== MOAT ========== -->
+<section id="moat">
+  <div class="container">
+    <div class="tag">Moat</div>
+    <h2 class="h">Hub economics that <em>compound</em></h2>
+    <p class="lede">Channel networks have one structural moat: liquidity network effects. They also have one structural problem: bootstrapping hubs when capital is locked and unproductive. AgentHill solves the second to unlock the first.</p>
+
+    <div class="moat-grid">
+      <div class="moat-card">
+        <div class="label">LIGHTNING (BTC)</div>
+        <div class="head">Routing fees only</div>
+        <div class="body">BTC has no native yield. Lightning hubs earn fractions of a basis point on locked capital. Network has stayed at ~5,000 BTC capacity for years.</div>
+        <div class="result">Result: retail UX forced custodian collapse (WoS, Strike). No middle tier of hubs.</div>
+      </div>
+      <div class="moat-card is-us">
+        <div class="label">AGENTHILL (STABLECOINS)</div>
+        <div class="head">Routing fees <em>+</em> DeFi yield</div>
+        <div class="body">Stablecoin collateral earns 3–5% APY in Aave/Compound via share-based proxy contracts. Hubs viable at far lower volume.</div>
+        <div class="result">Result: many medium hubs, real routing topology, agents (not humans) as the endpoint.</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -919,44 +1020,44 @@
   <div class="container">
     <div class="tag">Use cases</div>
     <h2 class="h">Where agents <em>pay</em> agents</h2>
-    <p class="lede">Every autonomous system that moves value benefits. Here are the first six.</p>
+    <p class="lede">MCP monetization is the wedge — 11,000+ servers, &lt;5% monetized. Adjacent stablecoin payment categories use the same channel layer.</p>
 
     <div class="uc-grid">
       <div class="uc">
         <div>
-          <div class="uc-head"><span class="chip signal">PRIMARY</span><span class="num">01</span></div>
-          <div class="t">Data Feeds</div>
-          <div class="d">Video, text, digits — sold at the granularity AI agents need. Per-request, per-byte.</div>
+          <div class="uc-head"><span class="chip signal">WEDGE</span><span class="num">01</span></div>
+          <div class="t">MCP Tool Calls</div>
+          <div class="d">11,000+ MCP servers, less than 5% monetized. Drop-in x402 facilitator with cross-chain settlement.</div>
         </div>
-        <div class="call">$ stream.open — pay/token</div>
+        <div class="call">$ tool.invoke — pay/call</div>
       </div>
       <div class="uc">
         <div>
           <div class="uc-head"><span class="chip signal">PRIMARY</span><span class="num">02</span></div>
           <div class="t">AI Computing</div>
-          <div class="d">Decentralized compute leasing. Agents as 24/7 representatives, maximizing revenue.</div>
+          <div class="d">Streaming GPU and inference leases. Pay-per-second metering settled through channels.</div>
         </div>
         <div class="call">$ lease.gpu — pay/second</div>
       </div>
       <div class="uc">
         <div>
           <div class="uc-head"><span class="chip signal">PRIMARY</span><span class="num">03</span></div>
-          <div class="t">Web Scraping</div>
-          <div class="d">No eyeballs for ads. Per-request micropayments as the new web monetization model.</div>
+          <div class="t">Data Feeds</div>
+          <div class="d">Video, text, signals — sold at agent granularity. Per-request, per-byte. No eyeballs, no ads.</div>
         </div>
         <div class="call">$ GET /page — 402 required</div>
       </div>
       <div class="uc">
         <div>
-          <div class="uc-head"><span class="chip solid">SECONDARY</span><span class="num">04</span></div>
-          <div class="t">Prediction Markets</div>
-          <div class="d">Millions of micro-bets without friction. Lower limits, higher volume, agentic discovery.</div>
+          <div class="uc-head"><span class="chip solid">ADJACENT</span><span class="num">04</span></div>
+          <div class="t">Cross-border Payouts</div>
+          <div class="d">Contractor and vendor flows on rails priced for sub-cent overhead, not card networks.</div>
         </div>
-        <div class="call">$ bet.place — pay/outcome</div>
+        <div class="call">$ payout.send — pay/contract</div>
       </div>
       <div class="uc">
         <div>
-          <div class="uc-head"><span class="chip solid">SECONDARY</span><span class="num">05</span></div>
+          <div class="uc-head"><span class="chip solid">ADJACENT</span><span class="num">05</span></div>
           <div class="t">Agent↔agent Commerce</div>
           <div class="d">Autonomous systems exchange value without a human in the loop or a credit card.</div>
         </div>
@@ -964,9 +1065,9 @@
       </div>
       <div class="uc">
         <div>
-          <div class="uc-head"><span class="chip solid">SECONDARY</span><span class="num">06</span></div>
-          <div class="t">Subscription Unbundling</div>
-          <div class="d">Pay per article, per MB, per API call — only for what you actually use.</div>
+          <div class="uc-head"><span class="chip solid">ADJACENT</span><span class="num">06</span></div>
+          <div class="t">Programmable Treasury</div>
+          <div class="d">Pay per article, per MB, per API call — only for what you actually use. Unbundle subscriptions.</div>
         </div>
         <div class="call">$ pay.as.you.go — pay/use</div>
       </div>
@@ -978,7 +1079,8 @@
 <section id="team">
   <div class="container">
     <div class="tag">Team</div>
-    <h2 class="h">The people <em>behind</em><br>the protocol</h2>
+    <h2 class="h">Built channel networks before.<br>Shipping is the <em>credential</em></h2>
+    <p class="lede">Almost nobody else in agent payments has shipped channel infrastructure. We've been doing it since 2016.</p>
 
     <div class="team-grid">
       <div class="team-card">
@@ -994,6 +1096,7 @@
             <svg viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
           </a>
         </div>
+        <div class="team-bio">Co-author of the <em>Flare</em> routing algorithm (2016, with Lightning Labs) — the foundational paper on payment-channel-network routing. Co-founder and CTO at Stroom Network. Working on channels since 2016.</div>
       </div>
 
       <div class="team-card">
@@ -1009,6 +1112,7 @@
             <svg viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
           </a>
         </div>
+        <div class="team-bio">Co-founder and CEO of <em>Stroom Network</em> — Bitcoin liquid staking on Lightning, reached $35M TVL in production. Earlier: Bitfury (2017+) on protocol and product. Decade in crypto infrastructure.</div>
       </div>
 
       <div class="team-card">
@@ -1024,6 +1128,7 @@
             <svg viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
           </a>
         </div>
+        <div class="team-bio">Operations, partnerships, and hub liquidity. Prior experience scaling crypto infrastructure operations alongside the <em>Stroom</em> team.</div>
       </div>
     </div>
   </div>
@@ -1070,7 +1175,7 @@
 
 <footer>
   <div class="ft">
-    <div>© 2026 AgentHill — payment layer for the agentic economy.</div>
+    <div>© 2026 AgentHill — capital-efficient channels for agent payments.</div>
   </div>
 </footer>
 
